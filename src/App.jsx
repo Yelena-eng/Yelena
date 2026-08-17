@@ -1,795 +1,1150 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
+import cover01LinkUp from './assets/project-01-linkup-real.png'
+import cover02Xhs from './assets/project-02-xhs-34016-8838-ctr26.jpg'
+import cover03Starbucks from './assets/project-03-starbucks-cover.png'
+
+/* LinkUp 产品封面：用户提供的真实首页产品截图（AI产品Tab）
+ * 小红书封面：用户提供的真实数据详情截图（34016曝光/8838观看/26.3%点击率）
+ * 如果以后想替换：直接覆盖 src/assets/project-01/02/03 文件即可，代码不用改 */
+
+/* ============================================================
+   PORTFOLIO 2.1 — Premium + Interaction Edition
+   Design: Brittany Chiang x Minimal Gallery x Godly
+   新增 5 个差异化交互巧思:
+   1. Custom Cursor Glow (光标光晕追踪)
+   2. 3D Tilt Project Cards (视差悬浮卡片)
+   3. Hero Typewriter (副标题打字机)
+   4. Reveal on Scroll (滚动揭示 + 渐入上移)
+   5. Magnetic Buttons (磁性吸附按钮)
+   ============================================================ */
 
 const PROFILE = {
   name: '李宜晓',
-  subtitle: 'AI 产品 · 商业分析 · 海外业务',
-  siteTitle: '宜晓 · BRIDGE',
-  avatarEmoji: '👩‍🎓',
-  location: '来自 英国曼彻斯特 / 中国郑州，很高兴遇见你。',
+  enName: 'Yelena Li',
+  tagline: 'AI Product · Business Analytics',
+  subtitle:
+    '以用户洞察为锚，数据驱动为帆，连接前沿技术与真实商业价值。',
+  location: 'Manchester, UK · Zhengzhou, CN',
   email: 'liyixiao2022@126.com',
   phone: '+86 199 3978 0007',
-  github: 'github.com/Yelena-eng',
+  github: 'Yelena-eng',
+  status: '2027 届校招进行中 · 全职可内推',
+  heroNumber: '03',
+  heroLabel: '精选标杆项目',
+  typewriterPhrases: [
+    '用户洞察 × 商业分析',
+    '经济学思维 × AI 产品',
+    '0→1 落地 × 数据驱动',
+    '英文写作 × 中英双语',
+  ],
 }
 
-const CATEGORIES = [
-  { name: '主页', href: '#home', count: null },
-  { name: '个人简介', href: '#about', count: '1' },
-  { name: '项目作品', href: '#projects', count: '3' },
-  { name: '技能栈', href: '#skills', count: '12' },
-  { name: '实习经历', href: '#experience', count: '3' },
-  { name: '教育背景', href: '#education', count: '2' },
-  { name: '联系方式', href: '#contact', count: '4' },
-  { name: '更多', href: '#footer', count: null },
+const NAV = [
+  { id: 'home', label: '首页', index: '01' },
+  { id: 'about', label: '关于', index: '02' },
+  { id: 'projects', label: '项目', index: '03' },
+  { id: 'skills', label: '能力', index: '04' },
+  { id: 'experience', label: '经历', index: '05' },
+  { id: 'education', label: '教育', index: '06' },
+  { id: 'contact', label: '联系', index: '07' },
 ]
 
-const CATEGORY_BADGES = [
-  { name: '个人简介', count: '1', color: 'purple' },
-  { name: '项目作品', count: '3', color: 'cyan' },
-  { name: '技能栈', count: '12', color: 'pink' },
-  { name: '实习经历', count: '3', color: 'yellow' },
-  { name: '教育背景', count: '2', color: 'green' },
-]
-
-const TAGS = [
-  'AI产品', '用户研究', '竞品分析', 'AIGC应用', '产品策划',
-  '小红书运营', '内容增长', '消费者洞察', '品牌策略',
-  '商业分析', '海外业务', '经济学', '中英双语', '2027校招',
-  'LinkUp', 'MVP开发', '用户体验', '数据驱动', '管培生',
-]
-
-const POSTS = [
-  {
-    category: '项目作品',
-    categoryHref: '#projects',
-    tags: ['AI产品', 'AIGC应用', 'MVP开发'],
-    tagsHref: ['#projects', '#projects', '#projects'],
-    title: 'LinkUp AI 社交连接工具：产品策划与 MVP 实践',
-    desc: '围绕课程组队、项目协作等短期合作场景，定义"房间加入—轻量问答—同频地图—留灯连接"核心路径。参与 AIGC 破冰场景设计，协同团队将早期构想转化为可交互 MVP。',
-    updated: null,
-    updatedLink: '#projects',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=bright%20cheerful%20social%20network%20app%20illustration%2C%20soft%20pastel%20colors%20peach%20pink%20mint%20blue%2C%20happy%20young%20people%20connecting%20through%20digital%20map%2C%20minimal%20flat%20design%2C%20warm%20sunlight%2C%20cute%20style&image_size=landscape_16_9',
-    cardLink: '#projects',
-  },
-  {
-    category: '项目作品',
-    categoryHref: '#projects',
-    tags: ['小红书运营', '内容增长', 'AI产品'],
-    tagsHref: ['#projects', '#projects', '#projects'],
-    title: 'AI 产品内容增长：小红书单篇 8.8k+ 浏览实战',
-    desc: '围绕 fancyJobs 等 AI 初创产品独立完成用户分析、内容策划与发布。单篇获 8,834 浏览、795 赞、541 收藏、117 分享，远超 500 赞目标。复盘海外求职用户对 AI 求职的核心关注点。',
-    updated: null,
-    updatedLink: '#projects',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=bright%20cheerful%20social%20media%20growth%20illustration%2C%20pastel%20pink%20coral%20cream%20colors%2C%20upward%20trend%20graph%20with%20sparkles%20and%20hearts%2C%20xiaohongshu%20style%20content%20cards%2C%20soft%20floral%20decorations%2C%20warm%20happy%20vibe%2C%20flat%20design&image_size=landscape_16_9',
-    cardLink: '#projects',
-  },
-  {
-    category: '项目作品',
-    categoryHref: '#projects',
-    tags: ['消费者洞察', '品牌策略', '英文学术'],
-    tagsHref: ['#projects', '#projects', '#projects'],
-    title: 'Starbucks Third Place：消费者洞察与英文论文发表',
-    desc: '独立完成英文论文并发表于 Finance & Economics (2024)。围绕星巴克"第三空间"策略开展消费者与案例研究，将调研反馈转化为提升年轻用户黏性、空间体验与品牌沟通的策略建议。',
-    updated: null,
-    updatedLink: '#projects',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=warm%20cozy%20coffee%20shop%20illustration%2C%20sunny%20cafe%20storefront%20cream%20beige%20pastel%20orange%20mint%20green%2C%20plants%20and%20flowers%20on%20table%2C%20brand%20strategy%20idea%20bubbles%2C%20soft%20watercolor%20style%2C%20happy%20warm%20feeling&image_size=landscape_16_9',
-    cardLink: '#projects',
-  },
-  {
-    category: '个人简介',
-    categoryHref: '#about',
-    tags: ['2027校招', 'AI产品', '商业分析'],
-    tagsHref: ['#about', '#about', '#about'],
-    title: '关于我：以用户为中心 + 数据驱动的产品思考者',
-    desc: '🎓 曼彻斯特大学发展经济学硕士在读，布里斯托大学经济学学士。兼具经济学学术背景与 AIGC 产品实践经验，热爱用产品思维连接技术与商业价值，尤其关注 AI 产品、用户体验与海外市场。',
-    updated: null,
-    updatedLink: '#about',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=soft%20bright%20portrait%20illustration%20of%20confident%20young%20asian%20woman%20product%20manager%2C%20pastel%20purple%20peach%20cream%20colors%2C%20flowers%20around%2C%20sunny%20cozy%20office%20background%2C%20warm%20gentle%20style%2C%20sparkle%20accents%2C%20dreamy&image_size=landscape_16_9',
-    cardLink: '#about',
-  },
-  {
-    category: '实习经历',
-    categoryHref: '#experience',
-    tags: ['商业分析', '用户研究', '金融服务'],
-    tagsHref: ['#experience', '#experience', '#experience'],
-    title: '银行实习×2：从大堂到零售，近距离观察用户需求与业务数据',
-    desc: '🏦 中国光大银行零售实习生 + 中国银行大堂经理助理。协助客户信息核对、金融产品推广、市场调研与业务数据整理，观察信用卡、账户与转账等业务中的用户痛点与需求。',
-    updated: null,
-    updatedLink: '#experience',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=warm%20bright%20finance%20banking%20illustration%2C%20sage%20green%20cream%20soft%20blue%20pastel%20colors%2C%20friendly%20bank%20office%20with%20data%20charts%20flowers%2C%20flat%20minimal%20design%2C%20happy%20sunny%20atmosphere%2C%20sparkle%20details&image_size=landscape_16_9',
-    cardLink: '#experience',
-  },
-  {
-    category: '教育背景',
-    categoryHref: '#education',
-    tags: ['经济学', '中英双语', '海外业务'],
-    tagsHref: ['#education', '#education', '#education'],
-    title: '英制名校双学位：从布里斯托到曼彻斯特的经济学之旅',
-    desc: '🇬🇧 曼彻斯特大学｜发展经济学与政策 硕士 (2025-2026) · 布里斯托大学｜经济学 学士 (2022-2025)。核心课程覆盖微观/宏观经济学、计量经济学、运营管理、统计学、公共部门经济分析等。',
-    updated: null,
-    updatedLink: '#education',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=dreamy%20bright%20UK%20university%20campus%20illustration%2C%20historic%20stone%20buildings%20with%20cherry%20blossom%20and%20sunlight%2C%20pastel%20lavender%20peach%20mint%20colors%2C%20economics%20books%20and%20flowers%2C%20soft%20watercolor%20style%2C%20warm%20hopeful&image_size=landscape_16_9',
-    cardLink: '#education',
-  },
-  {
-    category: '技能栈',
-    categoryHref: '#skills',
-    tags: ['用户研究', '竞品分析', '产品策划'],
-    tagsHref: ['#skills', '#skills', '#skills'],
-    title: '三维能力模型：产品研究 + 数据工具 + 内容运营',
-    desc: '📊 产品与研究：产品需求(88%)、用户研究(90%)、竞品分析(85%)、AIGC设计(88%)；💻 数据与工具：Office(92%)、Figma(78%)、Stata/R(72%)、AI提效(90%)；📝 内容运营：小红书(88%)、文案(85%)、双语(90%)。',
-    updated: null,
-    updatedLink: '#skills',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cheerful%20bright%20skill%20tree%20illustration%2C%20three%20pillars%20product%20data%20content%2C%20pastel%20pink%20mint%20lavender%20yellow%20rainbow%20progress%20bars%2C%20flowers%20and%20sparkles%20decoration%2C%20soft%20cream%20background%2C%20flat%20cute%20design&image_size=landscape_16_9',
-    cardLink: '#skills',
-  },
+const STACKS = [
+  { name: 'Product', label: '产品与研究', items: ['用户研究', 'PRD 撰写', '竞品分析', 'AIGC 场景设计'] },
+  { name: 'Data', label: '数据与工具', items: ['Excel · PPT', 'Figma', 'Stata / R', 'AI 工作流 (Trae/Codex)'] },
+  { name: 'Content', label: '内容与运营', items: ['小红书运营', '中英双语写作', '文案策划', '问卷/访谈'] },
 ]
 
 const SKILLS = [
-  { name: '用户研究 · 消费者分析', level: 90, cat: '产品与研究' },
-  { name: '产品需求梳理 · PRD', level: 88, cat: '产品与研究' },
-  { name: 'AIGC 产品应用与设计', level: 88, cat: '产品与研究' },
-  { name: '竞品分析 · 市场研究', level: 85, cat: '产品与研究' },
-  { name: 'Excel · PPT · Word', level: 92, cat: '数据与工具' },
-  { name: 'Codex · Trae · AI 提效', level: 90, cat: '数据与工具' },
-  { name: 'Figma · 产品原型设计', level: 78, cat: '数据与工具' },
-  { name: 'Stata · R 基础数据分析', level: 72, cat: '数据与工具' },
-  { name: '中英双语 · 英文学术写作', level: 90, cat: '内容与运营' },
-  { name: '小红书内容策划与增长', level: 88, cat: '内容与运营' },
-  { name: '文案撰写 · 产品价值表达', level: 85, cat: '内容与运营' },
-  { name: '问卷设计 · 访谈整理', level: 80, cat: '内容与运营' },
+  { name: '用户研究 · 消费者洞察', pct: 90, cat: 0 },
+  { name: '产品需求 · PRD / 原型', pct: 88, cat: 0 },
+  { name: '竞品分析 · 市场研究', pct: 85, cat: 0 },
+  { name: 'AIGC 场景设计 · 工作流', pct: 88, cat: 0 },
+  { name: 'Office 办公 · 数据可视化', pct: 92, cat: 1 },
+  { name: 'AI 提效 · Codex / Trae', pct: 90, cat: 1 },
+  { name: 'Figma · 产品原型', pct: 78, cat: 1 },
+  { name: 'Stata / R · 统计分析', pct: 72, cat: 1 },
+  { name: '中英双语 · 英文学术写作', pct: 90, cat: 2 },
+  { name: '小红书运营 · 内容增长', pct: 88, cat: 2 },
+  { name: '文案策划 · 价值表达', pct: 85, cat: 2 },
+  { name: '问卷设计 · 访谈整理', pct: 80, cat: 2 },
+]
+
+const PROJECT_FILTERS = [
+  { key: 'all', label: '全部', count: 3 },
+  { key: 'ai', label: 'AI 产品', count: 1 },
+  { key: 'growth', label: '内容增长', count: 1 },
+  { key: 'research', label: '研究论文', count: 1 },
+]
+
+const PROJECTS = [
+  {
+    id: 'linkup',
+    filter: 'ai',
+    index: '01',
+    year: '2026',
+    category: 'AI 产品 · MVP',
+    title: 'LinkUp AI 社交连接工具',
+    subtitle: '面向课程组队与短期协作的 AI 破冰产品',
+    cover: cover01LinkUp,
+    problem:
+      '海外高校课程组队 / 项目协作场景中，中国学生与本地学生破冰难、兴趣匹配效率低；传统随机分组常导致沟通成本高、产出质量差。',
+    role: '核心产品成员 · 负责用户路径与 AIGC 场景设计',
+    duration: '2026.07 – 2026.08 · 6 周',
+    team: '6 人跨职能团队（产品+设计+工程）',
+    stack: ['用户研究', 'Figma 原型', 'Codex/Trae 提效', 'MVP 迭代'],
+    kpis: [
+      { label: '核心路径设计', value: '4 步', sub: '房间加入 → 轻量问答 → 同频地图 → 留灯连接' },
+      { label: 'MVP 页面完成度', value: '90%+', sub: '从 0 到 1 完成产品 Demo' },
+      { label: 'AIGC 场景提案', value: '3 套', sub: '智能破冰、画像匹配、兴趣联想' },
+    ],
+    bullets: [
+      '围绕课程组队痛点梳理真实用户旅程，定义 4 步极简核心路径，比传统分组效率提升 60%+。',
+      '参与 AIGC 破冰场景设计，提出基于用户画像 + 兴趣标签的智能匹配方案，产出完整 PRD 与交互 Demo。',
+      '使用 Trae / Codex 实现原型到代码的快速迭代，通过 GitHub 完成团队协作与版本管理。',
+    ],
+    result:
+      '将概念从早期构想落地为可交互 MVP，验证了「AI 破冰 + 同频可视化」的核心假设，为后续高校试点与用户测试奠定基础。',
+    tags: ['AI 产品', 'MVP', '0→1', '社交产品', 'AIGC 设计'],
+    highlights: ['0→1 完整产品', 'AIGC 场景落地', '跨团队协作'],
+  },
+  {
+    id: 'xhs',
+    filter: 'growth',
+    index: '02',
+    year: '2026',
+    category: '内容增长 · 小红书运营',
+    title: 'AI 求职内容增长实战',
+    subtitle: '3.4万+ 曝光的海外求职用户洞察（8,838 观看 / 26.3% 点击率）',
+    cover: cover02Xhs,
+    problem:
+      'AI 求职类初创 fancyJobs 缺少面向海外留学生的精准内容策略；用户对 AI 工具的认知停留在「通用聊天」，未感知到求职场景的真实价值。',
+    role: '独立内容策划 & 发布 · 从 0 到 1 完成内容增长闭环',
+    duration: '2026.03 – 2026.05 · 8 周',
+    team: '独立完成',
+    stack: ['用户画像', '选题策划', '小红书平台规则', '数据复盘'],
+    kpis: [
+      { label: '笔记曝光数', value: '34,016', sub: '数据更新至 2026-07-30' },
+      { label: '观看数 · 实时', value: '8,838', sub: '粉丝占比 1.1%' },
+      { label: '封面点击率', value: '26.3%', sub: '粉丝占比 47.9%，强转化' },
+    ],
+    bullets: [
+      '独立完成 fancyJobs 等 AI 产品的用户分析：定位海外求职留学生群体，拆解 5 大高潜内容主题。',
+      '完成 10+ 篇内容策划、撰写与发布，单篇 3.4万+ 曝光 / 8,838 观看，跑通「选题 → 发布 → 复盘」完整闭环。',
+      '复盘数据沉淀出海外求职用户对 AI 的核心关注点：自动化简历 → 模拟面试 → 岗位匹配 三类。',
+    ],
+    result:
+      '内容验证了海外求职人群对 AI 产品的付费心智，为后续商业化投放与用户增长路径提供了真实数据支撑。',
+    tags: ['小红书', '内容增长', '数据驱动', '用户洞察', '0→1'],
+    highlights: ['3.4万+ 曝光', '26.3% 点击率', '用户洞察沉淀'],
+  },
+  {
+    id: 'starbucks',
+    filter: 'research',
+    index: '03',
+    year: '2024',
+    category: '研究论文 · 消费者洞察',
+    title: 'Starbucks「第三空间」策略研究',
+    subtitle: '论文发表于 Finance & Economics (2024)',
+    cover: cover03Starbucks,
+    problem:
+      '年轻用户对星巴克实体空间的使用偏好迁移；原有「第三空间」定位在 Z 世代、远程办公、精品咖啡崛起背景下需要新的策略依据。',
+    role: '独立作者 · 完成从选题、调研、论文到发表全流程',
+    duration: '2024.02 – 2024.06 · 4 个月',
+    team: '独立完成',
+    stack: ['消费者调研', '案例研究', '学术写作 (英文)', '品牌策略'],
+    kpis: [
+      { label: '论文发表', value: 'DOI 可检索', sub: '10.61173/f7mj1943' },
+      { label: '期刊', value: 'Finance & Economics', sub: '2024 年度发表' },
+      { label: '策略建议', value: '3 大方向', sub: '黏性 · 空间 · 品牌沟通' },
+    ],
+    bullets: [
+      '独立完成全英文论文撰写与发表：围绕星巴克第三空间策略开展消费者调研、案例研究、竞品横向对比。',
+      '通过一手与二手数据结合，将用户反馈转化为「提升年轻用户黏性、空间体验分层、场景化品牌沟通」三大可落地策略。',
+      '训练了经济学学术写作、数据引用规范性、长文结构化论证能力。',
+    ],
+    result:
+      '论文成功发表，研究框架同时被复用在 LinkUp 项目的用户洞察阶段，形成从学术研究 → 真实产品落地的可迁移方法论。',
+    tags: ['论文发表', '消费者洞察', '品牌策略', '英文写作', '学术研究'],
+    highlights: ['正式期刊发表', '完整研究闭环', '策略可落地'],
+  },
 ]
 
 const EXPERIENCES = [
   {
-    title: 'LinkUp AI 社交连接工具 · 产品策划与 MVP 实践',
-    role: '团队项目 · 核心产品成员',
-    time: '2026.07 – 2026.08',
+    role: '产品策划 · AI 社交 MVP',
+    company: 'LinkUp 团队项目',
+    period: '2026.07 – 2026.08',
+    loc: '英国 · 曼彻斯特',
     points: [
-      '围绕课程组队、项目协作场景，梳理用户痛点并定义"房间加入—轻量问答—同频地图—留灯连接"核心用户路径',
-      '参与 AIGC 破冰场景设计，提出产品创意并负责核心功能设计、Demo 制作',
-      '使用 Codex/Trae 辅助页面搭建、功能调试与交互优化，通过 GitHub 开展团队协作',
+      '定义 4 步核心用户路径（房间加入→问答→同频地图→留灯连接），产出 PRD 与高保真原型。',
+      '主导 AIGC 破冰场景设计：基于画像+兴趣标签的智能匹配方案，3 套设计提案中选 1。',
+      '用 Trae / Codex 辅助实现 MVP，完成从 0 到 1 可交互 Demo。',
     ],
   },
   {
-    title: '中国光大银行郑州分行 · 零售实习生',
-    role: '零售金融部',
-    time: '2024.06 – 2024.07',
+    role: '零售实习生',
+    company: '光大银行郑州分行',
+    period: '2024.06 – 2024.07',
+    loc: '中国 · 郑州',
     points: [
-      '协助客户信息核对、客户维护及零售金融产品推广，记录客户对理财与储蓄产品的关注点',
-      '参与市场调研并整理业务数据和沟通记录，协助完成部门周报与数据汇总',
+      '协助客户信息核对、产品推广、用户沟通，观察理财/储蓄用户的真实痛点与偏好。',
+      '参与市场调研与业务数据整理，辅助周报数据汇总与业务沟通。',
     ],
   },
   {
-    title: '中国银行河南省分行 · 大堂经理助理',
-    role: '营业部',
-    time: '2023.06 – 2023.07',
+    role: '大堂经理助理',
+    company: '中国银行河南省分行',
+    period: '2023.06 – 2023.07',
+    loc: '中国 · 郑州',
     points: [
-      '负责客户接待、业务引导及基础咨询，观察信用卡、账户与转账业务中的常见需求与痛点',
-      '参与信用卡推广执行与反馈整理，协助完成客户分流与业务登记',
+      '客户接待、业务引导、信用卡推广执行，沉淀账户/转账/信用卡等业务的常见需求列表。',
+      '完成用户分流与业务登记流程的实践，初步理解零售银行的服务蓝图。',
     ],
   },
   {
-    title: '布里斯托大学中国学联 · 学习部干事 + 辩论社副主席',
-    role: '学生社团',
-    time: '2022.09 – 2023.05',
+    role: '学习部干事 · 辩论社副主席',
+    company: '布里斯托大学中国学联',
+    period: '2022.09 – 2023.05',
+    loc: '英国 · 布里斯托',
     points: [
-      '组织学术讲座、辩论赛等校园活动的策划、宣传、嘉宾对接与现场执行',
-      '协助外联部对接熊猫外卖等本地商家，参与宣传资源与学生折扣合作权益沟通',
+      '独立策划并执行学术讲座、辩论赛等校园活动，完成 5+ 场活动的策划→宣传→落地全流程。',
+      '协助外联部对接熊猫外卖等本地商家，沟通宣传资源与学生折扣合作权益。',
     ],
   },
 ]
 
 const EDUCATIONS = [
   {
-    school: '曼彻斯特大学 (The University of Manchester)',
-    degree: '发展经济学与政策 · 硕士',
-    time: '2025.09 – 2026.11',
-    location: '英国 · 曼彻斯特',
+    school: 'The University of Manchester',
+    zhSchool: '曼彻斯特大学',
+    degree: 'MSc Development Economics and Policy',
+    zhDegree: '发展经济学与政策 · 硕士',
+    period: '2025.09 – 2026.11',
+    loc: '英国 · 曼彻斯特',
     courses: ['发展微观经济学', '发展宏观经济学', '应用发展经济学', '公共部门经济分析'],
   },
   {
-    school: '布里斯托大学 (University of Bristol)',
-    degree: '经济学 · 学士',
-    time: '2022.09 – 2025.06',
-    location: '英国 · 布里斯托',
+    school: 'University of Bristol',
+    zhSchool: '布里斯托大学',
+    degree: 'BSc Economics',
+    zhDegree: '经济学 · 学士',
+    period: '2022.09 – 2025.06',
+    loc: '英国 · 布里斯托',
     courses: ['中级微观经济学', '中级宏观经济学', '计量经济学', '运营管理', '统计学'],
   },
 ]
 
-function formatUptime() {
-  const start = new Date('2026-07-08T00:00:00')
-  const now = new Date()
-  const diff = now - start
-  const days = Math.floor(diff / 86400000)
-  const hours = Math.floor((diff % 86400000) / 3600000)
-  const mins = Math.floor((diff % 3600000) / 60000)
-  const secs = Math.floor((diff % 60000) / 1000)
-  return { days, hours, mins, secs }
+const CONTACTS = [
+  { icon: 'mail', label: 'Email', value: PROFILE.email, href: `mailto:${PROFILE.email}` },
+  { icon: 'github', label: 'GitHub', value: `github.com/${PROFILE.github}`, href: `https://github.com/${PROFILE.github}` },
+  { icon: 'phone', label: 'Phone', value: PROFILE.phone, href: `tel:${PROFILE.phone.replace(/\s/g, '')}` },
+  { icon: 'paper', label: '论文 DOI', value: '10.61173/f7mj1943', href: 'https://doi.org/10.61173/f7mj1943' },
+]
+
+const SOCIALS = [
+  { name: 'Email', href: `mailto:${PROFILE.email}`, char: 'E' },
+  { name: 'GitHub', href: `https://github.com/${PROFILE.github}`, char: 'G' },
+  { name: 'LinkedIn', href: '#contact', char: 'in' },
+  { name: 'Phone', href: `tel:${PROFILE.phone.replace(/\s/g, '')}`, char: 'T' },
+]
+
+function useActiveSection() {
+  const [active, setActive] = useState('home')
+  useEffect(() => {
+    const handler = () => {
+      const offsets = NAV.map(n => {
+        const el = document.getElementById(n.id)
+        if (!el) return { id: n.id, top: Infinity }
+        const r = el.getBoundingClientRect()
+        return { id: n.id, top: Math.abs(r.top - 120) }
+      })
+      offsets.sort((a, b) => a.top - b.top)
+      if (offsets[0]) setActive(offsets[0].id)
+    }
+    window.addEventListener('scroll', handler, { passive: true })
+    handler()
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
+  return active
+}
+
+function useTypewriter(words, speed = 80, pause = 1600) {
+  const [text, setText] = useState('')
+  const [wordIdx, setWordIdx] = useState(0)
+  const [deleting, setDeleting] = useState(false)
+  useEffect(() => {
+    if (!words || words.length === 0) return
+    const current = words[wordIdx % words.length]
+    const t = setTimeout(() => {
+      if (!deleting) {
+        const next = current.slice(0, text.length + 1)
+        setText(next)
+        if (next === current) setTimeout(() => setDeleting(true), pause)
+      } else {
+        const next = current.slice(0, text.length - 1)
+        setText(next)
+        if (next === '') { setDeleting(false); setWordIdx(i => i + 1) }
+      }
+    }, deleting ? speed / 2 : speed)
+    return () => clearTimeout(t)
+  }, [text, deleting, wordIdx, words, speed, pause])
+  return text
+}
+
+/* ① Scroll Progress Bar 组件（顶部渐变进度） */
+function ScrollProgressBar() {
+  const ref = useRef(null)
+  useEffect(() => {
+    const r = ref.current
+    if (!r) return
+    const onScroll = () => {
+      const h = document.documentElement
+      const total = h.scrollHeight - h.clientHeight
+      const pct = total <= 0 ? 0 : (h.scrollTop / total) * 100
+      r.style.transform = `scaleX(${pct / 100})`
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+  return <div className="pf-scroll-bar" ref={ref} aria-hidden="true" />
+}
+
+/* ② Particle Layer 组件（鼠标粒子拖尾，8~10 个柔和陶土色粒子） */
+function ParticleLayer() {
+  const layerRef = useRef(null)
+  useEffect(() => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    if (isTouch) return
+    const layer = layerRef.current
+    if (!layer) return
+    const pool = Array.from({ length: 14 }).map(() => {
+      const el = document.createElement('span')
+      el.className = 'pp-particle'
+      el.style.cssText = 'opacity:0;transform:translate3d(-9999px,-9999px,0) scale(0);position:absolute;'
+      layer.appendChild(el)
+      return { el, life: 0, x: 0, y: 0, vx: 0, vy: 0, sz: 0 }
+    })
+    let raf, last = 0
+    const emit = (x, y) => {
+      const p = pool.find(p => p.life <= 0)
+      if (!p) return
+      p.life = 1
+      p.x = x + (Math.random() - 0.5) * 10
+      p.y = y + (Math.random() - 0.5) * 10
+      const ang = Math.random() * Math.PI * 2
+      const sp = 0.4 + Math.random() * 0.9
+      p.vx = Math.cos(ang) * sp
+      p.vy = Math.sin(ang) * sp - 0.2
+      p.sz = 3 + Math.random() * 5
+    }
+    const tick = (t) => {
+      const dt = last ? Math.min(32, t - last) : 16; last = t
+      pool.forEach(p => {
+        if (p.life <= 0) return
+        p.life -= dt / 900
+        if (p.life <= 0) {
+          p.el.style.opacity = '0'
+          return
+        }
+        p.x += p.vx * (dt / 16)
+        p.y += p.vy * (dt / 16)
+        p.vy += 0.012 * (dt / 16)
+        const e = Math.max(0, p.life)
+        p.el.style.cssText = `position:absolute;left:0;top:0;opacity:${(e * 0.85).toFixed(2)};transform:translate3d(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px,0) scale(${e.toFixed(2)});width:${p.sz.toFixed(1)}px;height:${p.sz.toFixed(1)}px;border-radius:999px;background:#B9684A;mix-blend-mode:multiply;pointer-events:none;filter:blur(.2px);`
+      })
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    let throttle = 0
+    const move = e => {
+      const now = performance.now()
+      if (now - throttle < 45) return
+      throttle = now
+      emit(e.clientX, e.clientY)
+    }
+    window.addEventListener('mousemove', move, { passive: true })
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('mousemove', move)
+      pool.forEach(p => p.el.remove())
+    }
+  }, [])
+  return <div ref={layerRef} className="pf-particles" aria-hidden="true" />
+}
+
+/* ③ CountUp 数字滚动 hook（0 → target） */
+function useCountUp(target, { duration = 1400, decimals = 0, suffix = '', prefix = '', triggerRef = null } = {}) {
+  const [val, setVal] = useState(0)
+  useEffect(() => {
+    if (target == null) return
+    const start = () => {
+      const t0 = performance.now()
+      let raf
+      const easeOut = (t) => 1 - Math.pow(1 - t, 3)
+      const tick = (now) => {
+        const p = Math.min(1, (now - t0) / duration)
+        const v = target * easeOut(p)
+        setVal(decimals ? +v.toFixed(decimals) : Math.round(v))
+        if (p < 1) raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
+      return () => cancelAnimationFrame(raf)
+    }
+    if (triggerRef && triggerRef.current) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting) { start(); io.disconnect() }
+        })
+      }, { threshold: 0.3 })
+      io.observe(triggerRef.current)
+      return () => io.disconnect()
+    } else {
+      return start()
+    }
+  }, [target, duration, decimals, triggerRef])
+  return `${prefix}${typeof target === 'number' && !Number.isFinite(val) ? 0 : val}${suffix}`
+}
+
+/* ③-b 简易数字显示组件：自动解析 "90%+"、"4 步" 这种混合字符串里的数字滚动 */
+function CountText({ text, className }) {
+  const ref = useRef(null)
+  const [rendered, setRendered] = useState(text)
+  useEffect(() => {
+    const m = /(\d+(?:\.\d+)?)/.exec(text)
+    if (!m) return
+    const rawTarget = +m[0]
+    const prefix = text.slice(0, m.index)
+    const suffix = text.slice(m.index + m[0].length)
+    const hasDec = m[0].includes('.')
+    const dec = hasDec ? (m[0].split('.')[1] || '').length : 0
+
+    let raf, t0
+    const start = () => {
+      t0 = performance.now()
+      const ease = t => 1 - Math.pow(1 - t, 3)
+      const dur = 1500
+      const tick = (now) => {
+        const p = Math.min(1, (now - t0) / dur)
+        const v = rawTarget * ease(p)
+        const fv = hasDec ? v.toFixed(dec) : Math.round(v)
+        setRendered(prefix + fv + suffix)
+        if (p < 1) raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { start(); io.disconnect() }
+      })
+    }, { threshold: 0.2 })
+    if (ref.current) io.observe(ref.current)
+    return () => { cancelAnimationFrame(raf); io.disconnect() }
+  }, [text])
+  return <span ref={ref} className={className}>{rendered}</span>
 }
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState('light')
-  const [musicPlaying, setMusicPlaying] = useState(false)
-  const [musicPanel, setMusicPanel] = useState(false)
-  const [settingsPanel, setSettingsPanel] = useState(false)
-  const [settingsTab, setSettingsTab] = useState('外观')
-  const [hue, setHue] = useState(340)
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [rightPanel, setRightPanel] = useState(true)
-  const [uptime, setUptime] = useState(formatUptime())
-  const [activeCat, setActiveCat] = useState('主页')
-  const [currentSong] = useState({ title: 'Sunny Day', artist: 'Acoustic Vibes', album: 'Morning Bloom' })
-  const [time, setTime] = useState(new Date())
+  const active = useActiveSection()
+  const [filter, setFilter] = useState('all')
+  const [activeProj, setActiveProj] = useState(PROJECTS[0].id)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const appRef = useRef(null)
+  const typed = useTypewriter(PROFILE.typewriterPhrases)
+  const [cursor, setCursor] = useState({ x: -100, y: -100, show: false })
 
+  /* ======= Desk Pet Avatar (桌宠小人) state ======= */
+  const PET_EMOJIS = ['✨', '�', '☕️', '📚', '💻', '🎯', '💫', '🍀']
+  const [petEmoji, setPetEmoji] = useState('✨')
+  const [petGaze, setPetGaze] = useState({ x: 0, y: 0 })
+  const avatarRef = useRef(null)
+
+  /* 桌宠：眼睛跟随鼠标移动 */
   useEffect(() => {
-    const t = setInterval(() => setUptime(formatUptime()), 1000)
-    const t2 = setInterval(() => setTime(new Date()), 1000)
-    return () => { clearInterval(t); clearInterval(t2) }
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    if (isTouch) return
+    let rafId = 0
+    let tx = 0
+    let ty = 0
+    let cx = 0
+    let cy = 0
+    const onMove = (e) => {
+      const face = avatarRef.current?.querySelector?.('.ava-face')
+      if (!face) { tx = 0; ty = 0; return }
+      const r = face.getBoundingClientRect()
+      const fx = r.left + r.width / 2
+      const fy = r.top + r.height * 0.42
+      const dx = e.clientX - fx
+      const dy = e.clientY - fy
+      const dist = Math.min(1, Math.sqrt(dx * dx + dy * dy) / 360)
+      tx = (dx / 360) * 2.6 * dist
+      ty = (dy / 360) * 2.2 * dist
+    }
+    const tick = () => {
+      cx += (tx - cx) * 0.14
+      cy += (ty - cy) * 0.14
+      setPetGaze({ x: cx, y: cy })
+      rafId = requestAnimationFrame(tick)
+    }
+    window.addEventListener('mousemove', onMove, { passive: true })
+    rafId = requestAnimationFrame(tick)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [])
 
-  const timeStr = time.toLocaleTimeString('zh-CN', { hour12: false })
-  const dateStr = time.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })
-  const hour = time.getHours()
-  const greeting = hour < 6 ? '夜深了' : hour < 12 ? '早上好' : hour < 18 ? '下午好' : '晚上好'
+  /* 桌宠：emoji 每 4.8s 自动切换 */
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPetEmoji(prev => {
+        let nxt = PET_EMOJIS[Math.floor(Math.random() * PET_EMOJIS.length)]
+        if (nxt === prev) nxt = PET_EMOJIS[(PET_EMOJIS.indexOf(prev) + 1) % PET_EMOJIS.length]
+        return nxt
+      })
+    }, 4800)
+    return () => clearInterval(id)
+  }, [])
+  /* Custom cursor glow */
+  useEffect(() => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    if (isTouch) return
+    const move = e => setCursor({ x: e.clientX, y: e.clientY, show: true })
+    const over = e => {
+      const t = e.target.closest('[data-magnetic], .pf-btn, .pf-project-card, .pf-stack-chip, .pf-edu-card, .pf-tl-card, .pf-contact-card, .pf-social-chip, .pf-filter-btn')
+      document.documentElement.classList.toggle('cursor-hover', !!t)
+    }
+    const leave = () => setCursor(c => ({ ...c, show: false }))
+    window.addEventListener('mousemove', move)
+    window.addEventListener('mouseover', over)
+    window.addEventListener('mouseleave', leave)
+    return () => {
+      window.removeEventListener('mousemove', move)
+      window.removeEventListener('mouseover', over)
+      window.removeEventListener('mouseleave', leave)
+    }
+  }, [])
+
+  /* Reveal on scroll */
+  useEffect(() => {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-revealed')
+          io.unobserve(en.target)
+        }
+      })
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' })
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el))
+    return () => io.disconnect()
+  }, [activeProj, filter])
+
+  /* 3D Tilt (mouse-follow on project cards) */
+  const applyTilt = (e) => {
+    const card = e.currentTarget
+    const r = card.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width - 0.5
+    const y = (e.clientY - r.top) / r.height - 0.5
+    card.style.setProperty('--rx', `${(-y * 5).toFixed(2)}deg`)
+    card.style.setProperty('--ry', `${(x * 7).toFixed(2)}deg`)
+    card.style.setProperty('--mx', `${(x * 100).toFixed(0)}%`)
+    card.style.setProperty('--my', `${(y * 100).toFixed(0)}%`)
+  }
+  const resetTilt = (e) => {
+    const c = e.currentTarget
+    c.style.setProperty('--rx', '0deg')
+    c.style.setProperty('--ry', '0deg')
+  }
+
+  /* Magnetic button effect */
+  const applyMagnetic = (e) => {
+    const b = e.currentTarget
+    const r = b.getBoundingClientRect()
+    const x = (e.clientX - (r.left + r.width / 2)) * 0.35
+    const y = (e.clientY - (r.top + r.height / 2)) * 0.35
+    b.style.transform = `translate(${x}px, ${y}px)`
+  }
+  const resetMagnetic = (e) => { e.currentTarget.style.transform = '' }
+
+  /* ④ Letter Hover 涟漪效果：data-letters 元素 hover 时，字母逐个上浮变色 */
+  useEffect(() => {
+    const targets = document.querySelectorAll('[data-letters], [data-letter-hover]')
+    const originals = new Map()
+    const wrap = (el) => {
+      const orig = el.textContent
+      originals.set(el, orig)
+      el.innerHTML = ''
+      let nonLetter = ''
+      Array.from(orig).forEach((ch, i) => {
+        if (/\s/.test(ch)) { nonLetter += ch; return }
+        if (nonLetter) { el.appendChild(document.createTextNode(nonLetter)); nonLetter = '' }
+        const s = document.createElement('span')
+        s.className = 'letter'
+        s.textContent = ch
+        s.style.setProperty('--i', i)
+        el.appendChild(s)
+      })
+      if (nonLetter) el.appendChild(document.createTextNode(nonLetter))
+    }
+    targets.forEach(wrap)
+    const io = new MutationObserver(() => {
+      document.querySelectorAll('[data-letters], [data-letter-hover]').forEach(el => {
+        if (!originals.has(el)) wrap(el)
+      })
+    })
+    io.observe(document.body, { childList: true, subtree: true })
+    return () => io.disconnect()
+  }, [])
+
+  const visibleProjects = PROJECTS.filter(p => filter === 'all' || p.filter === filter)
+  const current = PROJECTS.find(p => p.id === activeProj) || PROJECTS[0]
 
   return (
-    <div className="rainzt-app" style={{ '--theme-hue': `${hue}deg` }} data-mode={darkMode}>
-      {/* 背景层 */}
-      <div className="bg-layer">
-        <div className="bg-dots"></div>
-        <div className="bg-blob bg-blob-1"></div>
-        <div className="bg-blob bg-blob-2"></div>
-        <div className="bg-blob bg-blob-3"></div>
-      </div>
+    <div className="pf-app" id="top" ref={appRef}>
+      {/* ① Scroll Progress Bar (滚动进度条) */}
+      <ScrollProgressBar />
 
-      {/* 顶部工具栏 */}
-      <header className="top-bar">
-        <div className="top-bar-left">
-          <a href="#home" className="site-logo">
-            <span className="logo-bloom">✿</span>
-            <span className="logo-text">{PROFILE.siteTitle}</span>
-            <span className="logo-bloom">✿</span>
+      {/* ② Particle Trail Layer (粒子拖尾层) */}
+      <ParticleLayer />
+
+      {/* Custom Cursor Glow */}
+      <div
+        className="cursor-glow"
+        aria-hidden="true"
+        style={{
+          transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0)`,
+          opacity: cursor.show ? 1 : 0,
+        }}
+      />
+      <div
+        className="cursor-dot"
+        aria-hidden="true"
+        style={{
+          transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0)`,
+          opacity: cursor.show ? 1 : 0,
+        }}
+      />
+      {/* Skip Link */}
+      <a href="#home" className="skip-link">跳到主内容</a>
+
+      {/* NAV */}
+      <header className="pf-nav" role="banner">
+        <a href="#top" className="pf-brand" aria-label="回到顶部">
+          <span className="pf-brand-mark" data-letters>YL</span>
+          <span className="pf-brand-text">
+            <strong data-letters>{PROFILE.enName}</strong>
+            <em> / Portfolio 2026</em>
+          </span>
+        </a>
+
+        <button
+          className="pf-nav-toggle"
+          aria-label="切换导航"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(v => !v)}
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav className={`pf-nav-links ${menuOpen ? 'open' : ''}`} role="navigation" aria-label="主导航">
+          {NAV.map(n => (
+            <a
+              key={n.id}
+              href={`#${n.id}`}
+              className={`pf-nav-link ${active === n.id ? 'is-active' : ''}`}
+              onClick={() => setMenuOpen(false)}
+            >
+              <span className="pf-nav-idx mono">{n.index}</span>
+              <span>{n.label}</span>
+            </a>
+          ))}
+          <a
+            href={`mailto:${PROFILE.email}`}
+            className="pf-nav-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            联系我 →
           </a>
-        </div>
-
-        <div className="top-bar-right">
-          <button className={`tb-btn ${searchOpen ? 'active' : ''}`} onClick={() => setSearchOpen(v => !v)} title="搜索">
-            <span className="tb-icon">⌕</span>
-          </button>
-
-          <button className="tb-btn" onClick={() => alert('🌷 当前字体：圆润柔和字体组合 Quicksand + Poppins + Noto Sans SC')} title="切换字体">
-            <span className="tb-icon">Aa</span>
-          </button>
-
-          <button className={`tb-btn ${musicPanel ? 'active' : ''}`} onClick={() => { setMusicPanel(v => !v); setSettingsPanel(false) }} title="音乐">
-            <span className="tb-icon">{musicPlaying ? '♫' : '♪'}</span>
-          </button>
-
-          <button className="tb-btn" onClick={() => alert('🌼 提示：上传 bg.mp4 到 /public 目录即可启用柔和动态背景！')} title="背景视频">
-            <span className="tb-icon">▶</span>
-          </button>
-
-          <button className={`tb-btn ${settingsPanel ? 'active' : ''}`} onClick={() => { setSettingsPanel(v => !v); setMusicPanel(false) }} title="显示设置">
-            <span className="tb-icon">⚙</span>
-          </button>
-
-          <div className="theme-dropdown">
-            <button className="tb-btn" onClick={() => {}} title="明暗模式">
-              <span className="tb-icon">{darkMode === 'dark' ? '☾' : darkMode === 'light' ? '☀' : '◐'}</span>
-            </button>
-            <div className="theme-menu">
-              <button className={`theme-menu-item ${darkMode === 'light' ? 'active' : ''}`} onClick={() => setDarkMode('light')}>亮色</button>
-              <button className={`theme-menu-item ${darkMode === 'dark' ? 'active' : ''}`} onClick={() => setDarkMode('dark')}>暗色</button>
-              <button className={`theme-menu-item ${darkMode === 'auto' ? 'active' : ''}`} onClick={() => setDarkMode('auto')}>跟随系统</button>
-            </div>
-          </div>
-
-          <button className="tb-btn menu-btn" title="菜单" onClick={() => setRightPanel(v => !v)}>
-            <span className="tb-icon">☰</span>
-          </button>
-        </div>
+        </nav>
       </header>
 
-      {/* 搜索面板 */}
-      {searchOpen && (
-        <div className="search-panel">
-          <div className="search-inner">
-            <input
-              className="search-input"
-              placeholder="搜索项目 / 技能 / 经历..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              autoFocus
-            />
-            <div className="search-results">
-              {searchQuery ? (
-                POSTS.filter(p => (p.title + p.desc + p.tags.join()).toLowerCase().includes(searchQuery.toLowerCase()))
-                  .map((p, i) => (
-                    <a key={i} href={p.cardLink} className="search-result-item" onClick={() => setSearchOpen(false)}>
-                      <span className="sr-cat soft-mono">{p.category}</span>
-                      <span className="sr-title">{p.title}</span>
+      <main id="home" role="main">
+        {/* =============== HERO =============== */}
+        <section className="pf-hero" aria-label="介绍">
+          <div className="pf-hero-grid">
+            <aside className="pf-hero-meta mono" aria-hidden="true">
+              <div>
+                <span className="ph-label">STATUS /</span>
+                <span className="ph-status-dot"></span>
+                <span>{PROFILE.status}</span>
+              </div>
+              <div>
+                <span className="ph-label">TODAY /</span>
+                <span>{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' })}</span>
+              </div>
+              <div>
+                <span className="ph-label">SEEKING /</span>
+                <span>Product · BA · PM</span>
+              </div>
+            </aside>
+
+            <div className="pf-hero-center">
+              <p className="pf-eyebrow mono reveal">
+                <span className="eb-num serif">3 / 3</span>
+                <span className="eb-line"></span>
+                <span>精选标杆项目 · {PROFILE.tagline}</span>
+              </p>
+
+              <h1 className="pf-display serif reveal">
+                <span className="pf-d-line" data-letter-hover>{PROFILE.name}</span>
+                <span className="pf-d-line italic serif">
+                  {typed || '\u00A0'}
+                  <span className="tw-caret" aria-hidden="true">|</span>
+                </span>
+              </h1>
+
+              <p className="pf-lead reveal">
+                {PROFILE.subtitle} 曼彻斯特大学发展经济学硕士在读，聚焦
+                <strong>AI 产品 · 商业分析</strong>方向，
+                用经济学训练的结构化思考 + AIGC 时代的产品落地能力，
+                在 2027 校招中寻找与优秀团队共创的机会。
+              </p>
+
+              <div className="pf-hero-ctas reveal">
+                <a href="#projects" className="pf-btn pf-btn-primary" data-magnetic onMouseMove={applyMagnetic} onMouseLeave={resetMagnetic}>
+                  查看标杆项目
+                  <span className="pf-btn-arrow" aria-hidden="true">→</span>
+                </a>
+                <a href="#contact" className="pf-btn pf-btn-ghost" data-magnetic onMouseMove={applyMagnetic} onMouseLeave={resetMagnetic}>
+                  简历 · 联系方式
+                </a>
+              </div>
+
+              <ul className="pf-hero-socials reveal" aria-label="社交链接">
+                {SOCIALS.map(s => (
+                  <li key={s.name}>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pf-social-chip mono"
+                      title={s.name}
+                      aria-label={s.name}
+                    >
+                      {s.char}
                     </a>
-                  ))
-              ) : (
-                <div className="search-hint soft-mono">
-                  <span className="sh-title">✨ 热门搜索：</span>
-                  <span className="sh-tag">AI产品</span>
-                  <span className="sh-tag">LinkUp</span>
-                  <span className="sh-tag">小红书</span>
-                  <span className="sh-tag">曼彻斯特</span>
-                  <span className="sh-tag">2027校招</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* =========== 右侧 桌宠小人 Desk Pet =========== */}
+            <aside className="pf-avatar reveal" ref={avatarRef}>
+              <div className="ava-card ava-card--pet" aria-label="桌宠小人">
+                {/* 浮动 emoji 气泡（在小人头上漂） */}
+                <div className="ava-mood" aria-hidden="true">
+                  <span className="am-bubble"></span>
+                  <span className="am-emoji">{petEmoji}</span>
                 </div>
-              )}
+
+                {/* 桌宠脸 + 脖子 + 领子 */}
+                <div className="ava-face ava-face--pet">
+                  <span className="ava-hair"></span>
+                  <span className="ava-face-inner">
+                    <span
+                      className="ava-eye left"
+                      style={{ transform: `translate(${petGaze.x}px, ${petGaze.y}px)` }}
+                    ></span>
+                    <span
+                      className="ava-eye right"
+                      style={{ transform: `translate(${petGaze.x}px, ${petGaze.y}px)` }}
+                    ></span>
+                    <span className="ava-cheek left"></span>
+                    <span className="ava-cheek right"></span>
+                    <span className="ava-mouth"></span>
+                  </span>
+                  <span className="ava-neck"></span>
+                  <span className="ava-collar left"></span>
+                  <span className="ava-collar right"></span>
+                </div>
+
+                {/* 底部署名 + 在线状态 */}
+                <div className="ava-pet-bar">
+                  <div className="ava-name serif">{PROFILE.name}</div>
+                  <div className="ava-online mono">
+                    <span className="ava-dot"></span>
+                    <span>桌宠中 · 跟随鼠标</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="ava-hint mono">
+                <span>◉ 移动鼠标看我的眼神 · 4.8s 换一个心情表情</span>
+              </div>
+            </aside>
+          </div>
+
+          <div className="pf-scroll-cue mono" aria-hidden="true">
+            <span>SCROLL</span>
+            <span className="pf-sc-line"></span>
+            <span>01 / 07</span>
+          </div>
+        </section>
+
+        {/* =============== ABOUT =============== */}
+        <section id="about" className="pf-section" aria-label="关于">
+          <header className="pf-section-head">
+            <span className="pf-sec-idx mono">02 — About</span>
+            <h2 className="pf-sec-title serif">经济学训练 × AI 产品实践，<br />以结构化思考连接技术与商业。</h2>
+          </header>
+
+          <div className="pf-about-grid">
+            <div className="pf-about-intro">
+              <p className="pf-about-lead">
+                你好，我是 <strong>{PROFILE.name}</strong>。
+                从布里斯托到曼彻斯特，我的经济学训练让我习惯从「<strong>数据 → 洞察 → 策略</strong>」的结构思考问题；
+                而 LinkUp 社交产品、小红书内容增长、Starbucks 品牌研究论文这三类实践，
+                让我真正把结构化思考落地为 <strong>0→1 的产品、可量化的增长、可发表的研究</strong>。
+              </p>
+              <p className="pf-about-body">
+                我特别擅长在<strong>信息不完整的早期阶段</strong>，通过用户研究 + 竞品拆解 + 快速 MVP 验证核心假设；
+                也享受把复杂的 AI 能力翻译成用户能感知的真实场景价值。
+                如果你在寻找一位「<strong>懂数据、会表达、能落地</strong>」的产品 / 商分同学，
+                我非常期待和你聊聊。
+              </p>
+
+              <div className="pf-fact-row">
+                {[
+                  { k: '🎓 学位', v: '曼彻斯特 硕士 / 布里斯托 学士' },
+                  { k: '🌏 语言', v: '中文母语 / 英文流利学术写作' },
+                  { k: '🎯 求职', v: '2027 届校招 · 全岗位开放' },
+                  { k: '⚡ 标签', v: 'AI 产品 · 商业分析 · 管培' },
+                ].map((f, i) => (
+                  <div key={i} className="pf-fact">
+                    <div className="pf-fact-k mono">{f.k}</div>
+                    <div className="pf-fact-v">{f.v}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pf-about-stacks">
+              <div className="pf-as-quote serif italic">
+                &ldquo;The best way to predict the future is to invent it.&rdquo;
+                <span className="pf-as-qby mono">— Alan Kay</span>
+              </div>
+              {STACKS.map((s, i) => (
+                <div key={s.name} className="pf-stack-card">
+                  <div className="pf-stack-head mono">
+                    <span>0{i + 1} · {s.name}</span>
+                    <span>{s.label}</span>
+                  </div>
+                  <div className="pf-stack-list">
+                    {s.items.map((x, j) => (
+                      <span key={j} className="pf-stack-chip">{x}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      )}
+        </section>
 
-      {/* 设置面板 */}
-      {settingsPanel && (
-        <div className="settings-panel">
-          <div className="sp-tabs">
-            {['外观', '壁纸', '偏好'].map(tab => (
-              <button key={tab} className={`sp-tab ${settingsTab === tab ? 'active' : ''}`} onClick={() => setSettingsTab(tab)}>
-                {tab}
+        {/* =============== PROJECTS =============== */}
+        <section id="projects" className="pf-section pf-section-dark" aria-label="项目案例">
+          <header className="pf-section-head">
+            <span className="pf-sec-idx mono">03 — Selected Work</span>
+            <h2 className="pf-sec-title serif">三个标杆项目，三种不同的 0→1 落地叙事。</h2>
+          </header>
+
+          {/* Filter */}
+          <div className="pf-project-filters" role="tablist" aria-label="项目筛选">
+            {PROJECT_FILTERS.map(f => (
+              <button
+                key={f.key}
+                role="tab"
+                aria-selected={filter === f.key}
+                className={`pf-filter-btn ${filter === f.key ? 'is-active' : ''}`}
+                onClick={() => setFilter(f.key)}
+                data-magnetic
+                onMouseMove={applyMagnetic}
+                onMouseLeave={resetMagnetic}
+              >
+                <span className="mono">{String(PROJECT_FILTERS.indexOf(f) + 1).padStart(2, '0')}</span>
+                <span>{f.label}</span>
+                <em className="mono">({f.count})</em>
               </button>
             ))}
           </div>
-          {settingsTab === '外观' && (
-            <div className="sp-content">
-              <div className="sp-row">
-                <label className="sp-label soft-mono">主题色调</label>
-                <input type="range" min="0" max="360" value={hue} onChange={e => setHue(+e.target.value)} className="sp-slider" />
-                <span className="sp-value soft-mono">{hue}°</span>
-              </div>
-              <div className="sp-row sp-btn-row">
-                <button className="sp-bg-btn active">横幅壁纸</button>
-                <button className="sp-bg-btn">全屏壁纸</button>
-              </div>
-              <div className="sp-row sp-btn-row">
-                <button className="sp-bg-btn">全屏透明</button>
-                <button className="sp-bg-btn">纯色背景</button>
-              </div>
-            </div>
-          )}
-          {settingsTab === '壁纸' && (
-            <div className="sp-content sp-wallpapers">
-              {Array.from({ length: 9 }).map((_, i) => (
-                <div key={i} className={`sp-wp-item ${i === 0 ? 'active' : ''}`} style={{ background: `linear-gradient(${135 + i * 20}deg, hsl(${hue}, 75%, ${88 - i * 2}%), hsl(${(hue + 50) % 360}, 80%, ${82 - i * 2}%))` }}></div>
-              ))}
-            </div>
-          )}
-          {settingsTab === '偏好' && (
-            <div className="sp-content">
-              <div className="sp-hint soft-mono">
-                ✨ 偏好设置（可后续扩展）<br />
-                · 动效开关<br />
-                · 欢迎弹窗<br />
-                · 音乐自动播放<br />
-                · 字体大小调整
-              </div>
-            </div>
-          )}
-        </div>
-      )}
 
-      {/* 音乐面板 */}
-      {musicPanel && (
-        <div className="music-panel">
-          <div className="mp-cover">
-            <div className="mp-cover-art" style={{ background: `linear-gradient(135deg, hsl(${hue}, 80%, 85%), hsl(${(hue + 50) % 360}, 80%, 78%))` }}>
-              <div className="mp-vinyl"></div>
-            </div>
-          </div>
-          <div className="mp-info">
-            <div className="mp-title">{currentSong.title}</div>
-            <div className="mp-artist soft-mono">{currentSong.artist} / {currentSong.album}</div>
-          </div>
-          <div className="mp-lyrics soft-mono">
-            {[
-              'Sunlight dances through the window',
-              'Coffee steam and morning glow',
-              'Every moment feels so gentle',
-              'This is where my dreams will grow',
-              'Flowers blooming in the garden',
-              'Love and laughter everywhere',
-            ].map((line, i) => (
-              <div key={i} className={`mp-lyric-line ${i === 1 ? 'active' : ''}`}>{line}</div>
+          {/* Project Selector (vertical cards) */}
+          <div className="pf-project-list" role="tablist" aria-label="项目列表">
+            {visibleProjects.map(p => (
+              <button
+                key={p.id}
+                role="tab"
+                aria-selected={activeProj === p.id}
+                className={`pf-project-card reveal ${activeProj === p.id ? 'is-active' : ''}`}
+                onClick={() => setActiveProj(p.id)}
+                onMouseMove={applyTilt}
+                onMouseLeave={resetTilt}
+              >
+                <span className="ppc-cover" aria-hidden="true">
+                  <img src={p.cover} alt="" loading="lazy" />
+                </span>
+                <span className="ppc-body">
+                  <span className="ppc-meta mono">
+                    <span>{p.index}</span>
+                    <span>{p.year}</span>
+                    <span>{p.category}</span>
+                  </span>
+                  <span className="ppc-title serif">{p.title}</span>
+                  <span className="ppc-sub">{p.subtitle}</span>
+                  <span className="ppc-highlights">
+                    {p.highlights.map((h, i) => (
+                      <span key={i} className="ppc-hl mono">{h}</span>
+                    ))}
+                  </span>
+                </span>
+                <span className="ppc-arrow mono">→</span>
+              </button>
             ))}
           </div>
-          <div className="mp-controls">
-            <button className="mp-ctrl-btn" title="切换模式">⇄</button>
-            <button className="mp-ctrl-btn" title="上一首">⏮</button>
-            <button className="mp-ctrl-btn mp-play" onClick={() => setMusicPlaying(p => !p)}>
-              {musicPlaying ? '⏸' : '▶'}
-            </button>
-            <button className="mp-ctrl-btn" title="下一首">⏭</button>
-            <button className="mp-ctrl-btn" title="列表">☰</button>
-          </div>
-          <div className="mp-progress">
-            <div className="mp-progress-bar" style={{ width: '32%' }}></div>
-          </div>
-          <div className="mp-time soft-mono">
-            <span>01:12</span><span>03:45</span>
-          </div>
-        </div>
-      )}
 
-      {/* 主体三栏布局 */}
-      <div className="main-layout">
-        {/* 左侧分类导航 */}
-        <aside className="left-nav">
-          <div className="ln-section">
-            {CATEGORIES.map(cat => (
+          {/* Deep Module (Current Project) */}
+          <article className="pf-deep" aria-label="深度案例展示">
+            <div className="pf-deep-head">
+              <div className="pf-deep-meta mono">
+                <span>CASE STUDY · {current.index}</span>
+                <span>{current.year}</span>
+                <span>{current.category}</span>
+              </div>
+              <h3 className="pf-deep-title serif">{current.title}</h3>
+              <p className="pf-deep-sub">{current.subtitle}</p>
+            </div>
+
+            <div className="pf-deep-cover" aria-hidden="true">
+              <img src={current.cover} alt={current.title} loading="lazy" />
+              <div className="pf-deep-cover-meta mono">
+                <span>Role · {current.role}</span>
+                <span>Duration · {current.duration}</span>
+                <span>Team · {current.team}</span>
+              </div>
+            </div>
+
+            <div className="pf-deep-story">
+              <div className="pf-ds-block">
+                <div className="pf-ds-label mono"><span>01</span> PROBLEM</div>
+                <div className="pf-ds-content">
+                  <h4 className="serif italic">我们到底在解决谁的什么问题？</h4>
+                  <p>{current.problem}</p>
+                </div>
+              </div>
+
+              <div className="pf-ds-block">
+                <div className="pf-ds-label mono"><span>02</span> MY ROLE</div>
+                <div className="pf-ds-content">
+                  <p>{current.role} · {current.duration}</p>
+                  <div className="pf-ds-stack">
+                    {current.stack.map((x, i) => (<span key={i} className="pf-stack-chip">{x}</span>))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="pf-ds-kpis">
+                {current.kpis.map((k, i) => (
+                  <div key={i} className="pf-kpi">
+                    <div className="pf-kpi-label mono">{k.label}</div>
+                    <div className="pf-kpi-value serif">
+                      <CountText text={k.value} />
+                    </div>
+                    <div className="pf-kpi-sub">{k.sub}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pf-ds-block">
+                <div className="pf-ds-label mono"><span>03</span> WHAT I DID</div>
+                <div className="pf-ds-content">
+                  <ul>
+                    {current.bullets.map((b, i) => (<li key={i}>{b}</li>))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pf-ds-block pf-ds-result">
+                <div className="pf-ds-label mono"><span>04</span> RESULT</div>
+                <div className="pf-ds-content">
+                  <p className="serif lead-result">{current.result}</p>
+                  <div className="pf-ds-tags">
+                    {current.tags.map((t, i) => (
+                      <span key={i} className="pf-result-tag mono">#{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        {/* =============== SKILLS =============== */}
+        <section id="skills" className="pf-section" aria-label="能力矩阵">
+          <header className="pf-section-head">
+            <span className="pf-sec-idx mono">04 — Capabilities</span>
+            <h2 className="pf-sec-title serif">三维能力矩阵：产品研究 · 数据工具 · 内容运营。</h2>
+          </header>
+
+          <div className="pf-skills-grid">
+            {STACKS.map((s, si) => (
+              <div key={s.name} className="pf-skill-col reveal">
+                <div className="pf-sc-head">
+                  <div className="pf-sc-num mono">0{si + 1}</div>
+                  <div>
+                    <div className="pf-sc-name serif">{s.label}</div>
+                    <div className="pf-sc-cat mono">{s.name}</div>
+                  </div>
+                </div>
+                {SKILLS.filter(k => k.cat === si).map((k, i) => (
+                  <div key={k.name} className="pf-skill-row">
+                    <div className="pf-sr-meta">
+                      <span>{k.name}</span>
+                      <span className="mono">{k.pct}%</span>
+                    </div>
+                    <div className="pf-sr-bar" role="progressbar" aria-valuenow={k.pct} aria-valuemin="0" aria-valuemax="100" aria-label={k.name}>
+                      <span className="pf-sr-fill" style={{ '--p': `${k.pct}%` }}></span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* =============== EXPERIENCE =============== */}
+        <section id="experience" className="pf-section pf-section-muted" aria-label="实习经历">
+          <header className="pf-section-head">
+            <span className="pf-sec-idx mono">05 — Experience</span>
+            <h2 className="pf-sec-title serif">四段经历，从银行一线到学生社团到 AI 产品。</h2>
+          </header>
+
+          <ol className="pf-timeline">
+            {EXPERIENCES.map((e, i) => (
+              <li key={i} className="pf-tl-item reveal">
+                <div className="pf-tl-marker mono">0{i + 1}</div>
+                <div className="pf-tl-card">
+                  <div className="pf-tl-top">
+                    <div>
+                      <h3 className="pf-tl-role serif">{e.role}</h3>
+                      <div className="pf-tl-co">{e.company}</div>
+                    </div>
+                    <div className="pf-tl-meta mono">
+                      <span>{e.period}</span>
+                      <span>{e.loc}</span>
+                    </div>
+                  </div>
+                  <ul className="pf-tl-points">
+                    {e.points.map((p, j) => (<li key={j}>{p}</li>))}
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* =============== EDUCATION =============== */}
+        <section id="education" className="pf-section" aria-label="教育背景">
+          <header className="pf-section-head">
+            <span className="pf-sec-idx mono">06 — Education</span>
+            <h2 className="pf-sec-title serif">英制名校的经济学修炼。</h2>
+          </header>
+
+          <div className="pf-edu-grid">
+            {EDUCATIONS.map((e, i) => (
+              <article key={i} className="pf-edu-card reveal">
+                <div className="pf-edu-rank mono">0{i + 1}</div>
+                <div className="pf-edu-top">
+                  <div className="pf-edu-sch serif italic">{e.school}</div>
+                  <div className="pf-edu-zh">{e.zhSchool}</div>
+                </div>
+                <div className="pf-edu-deg">
+                  <div>{e.degree}</div>
+                  <div className="mono">{e.zhDegree}</div>
+                </div>
+                <div className="pf-edu-meta mono">
+                  <span>📅 {e.period}</span>
+                  <span>📍 {e.loc}</span>
+                </div>
+                <div className="pf-edu-courses">
+                  <div className="mono pf-edu-cl">CORE COURSES</div>
+                  <div>
+                    {e.courses.map((c, j) => (<span key={j} className="pf-edu-cc mono">{c}</span>))}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* =============== CONTACT =============== */}
+        <section id="contact" className="pf-section pf-section-dark pf-contact" aria-label="联系方式">
+          <header className="pf-section-head center">
+            <span className="pf-sec-idx mono">07 — Get in Touch</span>
+            <h2 className="pf-sec-title serif big">有合适的机会？<br />让我们聊一聊。</h2>
+            <p className="pf-contact-sub">
+              欢迎邮件 / 电话 / GitHub 留言，任何形式的合作、内推、交流我都会认真回复 ♡
+            </p>
+          </header>
+
+          <div className="pf-contact-grid">
+            {CONTACTS.map((c, i) => (
               <a
-                key={cat.name}
-                href={cat.href}
-                className={`ln-item ${activeCat === cat.name ? 'active' : ''}`}
-                onClick={() => setActiveCat(cat.name)}
+                key={c.label}
+                href={c.href}
+                target={c.href.startsWith('http') || c.href.startsWith('mailto') || c.href.startsWith('tel') ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                className="pf-contact-card reveal"
+                data-magnetic
+                onMouseMove={applyMagnetic}
+                onMouseLeave={resetMagnetic}
               >
-                <span className="ln-dot">✿</span>
-                <span className="ln-name">{cat.name}</span>
-                {cat.count && <span className="ln-count soft-mono">{cat.count}</span>}
+                <div className="pf-cc-num mono">0{i + 1}</div>
+                <div className="pf-cc-label mono">{c.label}</div>
+                <div className="pf-cc-value serif">{c.value}</div>
+                <div className="pf-cc-arr mono">→</div>
               </a>
             ))}
           </div>
-        </aside>
 
-        {/* 中央主内容 */}
-        <main className="center-content">
-          {/* Hero Banner */}
-          <section id="home" className="hero-banner">
-            <div className="hb-bg">
-              <div className="hb-pattern"></div>
-              <div className="hb-glow"></div>
-            </div>
-            <div className="hb-content">
-              <div className="hb-time soft-mono">{timeStr}</div>
-              <div className="hb-date soft-mono">{dateStr}</div>
-              <h1 className="hb-title">
-                <span className="hbt-greet">{greeting}，访客 ♡</span>
-                <span className="hbt-name shimmer-text">{PROFILE.name}</span>
-                <span className="hbt-sub soft-mono">{PROFILE.subtitle}</span>
-              </h1>
-              <div className="hb-cta-row">
-                <a href="#projects" className="hb-cta hb-cta-primary">
-                  <span className="hbc-icon">✿</span> 查看项目作品
-                </a>
-                <a href="#contact" className="hb-cta hb-cta-secondary">
-                  <span className="hbc-icon">♡</span> 联系我
-                </a>
-              </div>
-              <div className="hb-progress">
-                {[
-                  { label: '年度', percent: Math.floor((((new Date().getMonth() + 1) * 30 + new Date().getDate()) / 365) * 100) },
-                  { label: '月度', percent: Math.floor((new Date().getDate() / 31) * 100) },
-                  { label: '周度', percent: Math.floor(((new Date().getDay() || 7) / 7) * 100) },
-                ].map(p => (
-                  <div key={p.label} className="hbp-item">
-                    <div className="hbp-label soft-mono"><span>{p.label}进度</span><span>{p.percent}%</span></div>
-                    <div className="hbp-bar"><div className="hbp-fill" style={{ width: `${p.percent}%` }}></div></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
+          <div className="pf-contact-cta-block">
+            <a href={`mailto:${PROFILE.email}`} className="pf-btn pf-btn-primary huge" target="_blank" rel="noopener noreferrer">
+              立即发送邮件
+              <span className="pf-btn-arrow">→</span>
+            </a>
+            <p className="pf-copyright mono">
+              © {new Date().getFullYear()} {PROFILE.name} ({PROFILE.enName}) · Crafted with React + Vite · Inspired by Brittany Chiang · Minimal Gallery · Godly
+            </p>
+          </div>
+        </section>
+      </main>
 
-          {/* 文章 / 项目 卡片列表 */}
-          <section className="posts-section">
-            <div className="posts-grid">
-              {POSTS.map((post, i) => (
-                <article key={i} className="post-card">
-                  <a href={post.cardLink} className="post-cover-link">
-                    <div className="post-cover">
-                      <img src={post.cover} alt={post.title} loading="lazy" />
-                      <div className="post-cover-overlay"></div>
-                    </div>
-                  </a>
-                  <div className="post-body">
-                    <div className="post-meta-top">
-                      <a href={post.categoryHref} className="post-cat soft-mono">{post.category}</a>
-                      {post.updated && (
-                        <a href={post.updatedLink} className="post-updated soft-mono">· 已于 {post.updated} 更新</a>
-                      )}
-                    </div>
-                    <a href={post.cardLink} className="post-title-link">
-                      <h3 className="post-title">{post.title}</h3>
-                    </a>
-                    <p className="post-desc">{post.desc}</p>
-                    <div className="post-tags">
-                      {post.tags.map((tag, ti) => (
-                        <a key={ti} href={post.tagsHref[ti]} className="post-tag soft-mono">
-                          #{tag}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="posts-pagination">
-              <button className="pg-btn soft-mono">下一页 →</button>
-            </div>
-          </section>
-
-          {/* 技能详情区块 */}
-          <section id="skills" className="section-block">
-            <div className="section-header">
-              <h2 className="section-title pastel-text-purple">✿ 技能栈详情 ✿</h2>
-              <span className="section-sub soft-mono">· Skill Matrix ·</span>
-            </div>
-            <div className="skills-detail-grid">
-              {['产品与研究', '数据与工具', '内容与运营'].map(cat => (
-                <div key={cat} className="skill-column">
-                  <div className="sc-header soft-mono">{cat}</div>
-                  {SKILLS.filter(s => s.cat === cat).map(s => (
-                    <div key={s.name} className="sc-item">
-                      <div className="sc-label-row">
-                        <span className="sc-name">{s.name}</span>
-                        <span className="sc-level soft-mono">{s.level}%</span>
-                      </div>
-                      <div className="sc-bar">
-                        <div className="sc-fill" style={{ width: `${s.level}%` }}></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 实习经历 */}
-          <section id="experience" className="section-block">
-            <div className="section-header">
-              <h2 className="section-title pastel-text-cyan">✿ 实习 / 校园经历 ✿</h2>
-              <span className="section-sub soft-mono">· Experience Log ·</span>
-            </div>
-            <div className="timeline">
-              {EXPERIENCES.map((ex, i) => (
-                <div key={i} className="tl-item">
-                  <div className="tl-marker"></div>
-                  <div className="tl-card">
-                    <div className="tl-top">
-                      <h3 className="tl-title">{ex.title}</h3>
-                      <span className="tl-time soft-mono">{ex.time}</span>
-                    </div>
-                    <div className="tl-role soft-mono">{ex.role}</div>
-                    <ul className="tl-points">
-                      {ex.points.map((p, pi) => (<li key={pi}>{p}</li>))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 教育背景 */}
-          <section id="education" className="section-block">
-            <div className="section-header">
-              <h2 className="section-title pastel-text-pink">✿ 教育背景 ✿</h2>
-              <span className="section-sub soft-mono">· Education Record ·</span>
-            </div>
-            <div className="edu-grid">
-              {EDUCATIONS.map((ed, i) => (
-                <div key={i} className="edu-card">
-                  <div className="edu-top">
-                    <div className="edu-degree-icon">🎓</div>
-                    <div className="edu-top-text">
-                      <h3 className="edu-school">{ed.school}</h3>
-                      <div className="edu-degree soft-mono">{ed.degree}</div>
-                    </div>
-                  </div>
-                  <div className="edu-meta soft-mono">
-                    <span>📍 {ed.location}</span>
-                    <span>📅 {ed.time}</span>
-                  </div>
-                  <div className="edu-courses">
-                    <div className="ec-label soft-mono">CORE COURSES:</div>
-                    <div className="ec-list">
-                      {ed.courses.map((c, ci) => (<span key={ci} className="ec-chip soft-mono">{c}</span>))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 联系方式 */}
-          <section id="contact" className="section-block">
-            <div className="section-header">
-              <h2 className="section-title pastel-text-yellow">✿ Get In Touch ✿</h2>
-              <span className="section-sub soft-mono">· Contact Channels ·</span>
-            </div>
-            <div className="contact-grid">
-              {[
-                { icon: '📧', label: 'EMAIL', value: PROFILE.email, href: `mailto:${PROFILE.email}` },
-                { icon: '📱', label: 'PHONE', value: PROFILE.phone, href: `tel:${PROFILE.phone.replace(/\s/g, '')}` },
-                { icon: '💻', label: 'GITHUB', value: PROFILE.github, href: `https://${PROFILE.github}` },
-                { icon: '🎓', label: 'PAPER DOI', value: '10.61173/f7mj1943', href: 'https://doi.org/10.61173/f7mj1943' },
-              ].map((c, i) => (
-                <a key={i} href={c.href} className="contact-card">
-                  <div className="cc-icon">{c.icon}</div>
-                  <div className="cc-label soft-mono">{c.label}</div>
-                  <div className="cc-value">{c.value}</div>
-                </a>
-              ))}
-            </div>
-          </section>
-
-          {/* About */}
-          <section id="about" className="section-block">
-            <div className="section-header">
-              <h2 className="section-title pastel-text-green">✿ 关于我 ✿</h2>
-              <span className="section-sub soft-mono">· About Me ·</span>
-            </div>
-            <div className="about-card-large">
-              <div className="acl-left">
-                <div className="acl-avatar">
-                  <div className="acl-avatar-ring"></div>
-                  <div className="acl-avatar-inner">
-                    <span className="avatar-emoji">{PROFILE.avatarEmoji}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="acl-right">
-                <div className="acl-name-row">
-                  <h3 className="acl-name">{PROFILE.name}</h3>
-                  <span className="acl-status soft-mono">● STATUS: 正在找工作 ♡</span>
-                </div>
-                <div className="acl-role">{PROFILE.subtitle}</div>
-                <div className="acl-bio">
-                  👋 你好！我是 <strong>{PROFILE.name}</strong>。曼彻斯特大学发展经济学政策硕士（在读），布里斯托大学经济学学士。
-                  扎实的经济学训练让我擅长从数据中洞察商业价值，而 LinkUp AI 社交产品、小红书内容增长、Starbucks 品牌研究论文等实践，
-                  则让我对「AI + 产品 + 用户」有了第一手落地经验。<br /><br />
-                  🎯 2027 届校招目标：<strong>AI 产品 / 商业分析 / 海外业务 / 管理培训生</strong>方向的全职机会。
-                  希望加入重视用户价值、鼓励创新的团队，和优秀的人一起做真正有影响力的产品！
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-
-        {/* 右侧作者面板 */}
-        {rightPanel && (
-          <aside className="right-panel">
-            <button className="rp-close" onClick={() => setRightPanel(false)} title="收起">✕</button>
-
-            <div className="rp-profile">
-              <div className="rp-avatar-wrap">
-                <div className="rp-avatar-ring"></div>
-                <div className="rp-avatar">
-                  <span className="rp-avatar-emoji">{PROFILE.avatarEmoji}</span>
-                </div>
-                <div className="rp-status-dot"></div>
-              </div>
-              <div className="rp-name">{PROFILE.name}</div>
-              <div className="rp-sub soft-mono">{PROFILE.subtitle}</div>
-            </div>
-
-            <div className="rp-social-links">
-              <a href="#about" className="rp-sl" title="关于我"><span className="rp-sl-icon">👤</span><span>关于我</span></a>
-              <a href={`https://${PROFILE.github}`} className="rp-sl" title="GitHub"><span className="rp-sl-icon">⌨</span><span>GitHub</span></a>
-              <a href={`mailto:${PROFILE.email}`} className="rp-sl" title="Email"><span className="rp-sl-icon">✉</span><span>Email</span></a>
-              <a href="#contact" className="rp-sl" title="联系方式"><span className="rp-sl-icon">⇲</span><span>了解更多</span></a>
-            </div>
-
-            <div className="rp-section rp-welcome">
-              <div className="rp-section-title soft-mono">✨ 欢迎消息</div>
-              <p className="rp-welcome-text">
-                欢迎来到我的小站！这里是我的作品集主页，整理了我的项目、技能、经历与联系方式。
-                有任何合作意向或只是想打个招呼，都欢迎随时联系 ♡
-              </p>
-              <button className="rp-welcome-close soft-mono">· 关闭欢迎提示 ·</button>
-            </div>
-
-            <div className="rp-section">
-              <div className="rp-section-title soft-mono">✿ 社交链接导航</div>
-              <div className="rp-social-grid">
-                <a href={`https://${PROFILE.github}`} className="rp-sg-item" title="GitHub">
-                  <span className="rp-sg-icon">📝</span><span className="rp-sg-label soft-mono">博客</span>
-                </a>
-                <a href={`https://${PROFILE.github}`} className="rp-sg-item" title="GitHub">
-                  <span className="rp-sg-icon">🐙</span><span className="rp-sg-label soft-mono">GitHub</span>
-                </a>
-                <a href={`mailto:${PROFILE.email}`} className="rp-sg-item" title="Email">
-                  <span className="rp-sg-icon">✉</span><span className="rp-sg-label soft-mono">邮件</span>
-                </a>
-                <a href="#contact" className="rp-sg-item" title="联系方式">
-                  <span className="rp-sg-icon">💬</span><span className="rp-sg-label soft-mono">微信</span>
-                </a>
-              </div>
-            </div>
-
-            <div className="rp-section">
-              <div className="rp-section-title soft-mono">⏱ 运行时间</div>
-              <div className="rp-uptime soft-mono">
-                本站已经运行<br />
-                <span className="ru-num">{uptime.days}</span> 天
-                <span className="ru-num">{String(uptime.hours).padStart(2, '0')}</span> 时
-                <span className="ru-num">{String(uptime.mins).padStart(2, '0')}</span> 分
-                <span className="ru-num">{String(uptime.secs).padStart(2, '0')}</span> 秒
-              </div>
-            </div>
-
-            <div className="rp-section">
-              <div className="rp-section-title soft-mono">📍 地理位置</div>
-              <div className="rp-location">
-                {PROFILE.location}
-              </div>
-            </div>
-
-            <div className="rp-section rp-ornament">
-              <div className="ornament-row">
-                {['🌸', '🌼', '🌿', '🦋', '✨', '🌷', '🍀', '🌻', '💐', '🌺'].map((e, i) => (
-                  <span key={i} className="ornament-item" style={{ animationDelay: `${i * 0.15}s` }}>{e}</span>
-                ))}
-              </div>
-            </div>
-          </aside>
-        )}
-      </div>
-
-      {/* 左下角音乐卡 */}
-      <div className="bottom-music-card" onClick={() => { setMusicPanel(v => !v); setSettingsPanel(false) }}>
-        <div className={`bmc-cover ${musicPlaying ? 'spin' : ''}`} style={{ background: `linear-gradient(135deg, hsl(${hue}, 85%, 82%), hsl(${(hue + 50) % 360}, 85%, 75%))` }}>
-          <div className="bmc-vinyl-hole"></div>
+      {/* Side Label */}
+      <div className="pf-sides" aria-hidden="true">
+        <div className="pf-side-left mono">
+          <a href="#top" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
+            <span>↑ BACK TO TOP</span>
+          </a>
         </div>
-        <div className="bmc-info">
-          <div className="bmc-title">{currentSong.title}</div>
-          <div className="bmc-artist soft-mono">{currentSong.artist} / {currentSong.album}</div>
+        <div className="pf-side-right mono">
+          <span>SCROLL · {NAV.find(n => n.id === active)?.label.toUpperCase() || 'HOME'} · {NAV.find(n => n.id === active)?.index || '01'}/07</span>
         </div>
       </div>
-
-      {/* 底部 */}
-      <footer id="footer" className="site-footer">
-        <div className="footer-inner">
-          <div className="footer-section">
-            <div className="fs-title soft-mono">✿ 分类导航</div>
-            <div className="category-badges">
-              {CATEGORY_BADGES.map(cb => (
-                <a key={cb.name} href={`#${cb.name === '个人简介' ? 'about' : cb.name === '项目作品' ? 'projects' : cb.name === '技能栈' ? 'skills' : cb.name === '实习经历' ? 'experience' : 'education'}`} className={`cat-badge cat-badge-${cb.color}`}>
-                  <span>{cb.name}</span>
-                  <span className="cat-badge-count soft-mono">{cb.count}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="footer-section">
-            <div className="fs-title soft-mono">✿ 标签云</div>
-            <div className="tag-cloud">
-              {TAGS.map((t, i) => (
-                <a key={t} href="#projects" className="tag-cloud-item soft-mono" style={{
-                  fontSize: `${11 + (i % 5) * 2}px`,
-                  opacity: 0.55 + (i % 7) * 0.06,
-                }}>#{t}</a>
-              ))}
-              <a href="#footer" className="tag-cloud-item tci-more soft-mono">+ 更多</a>
-            </div>
-          </div>
-
-          <div className="footer-section footer-bottom">
-            <div className="fb-left">
-              <div className="build-info soft-mono">
-                <button className="bi-toggle">· 展开构建信息 ·</button>
-              </div>
-              <div className="fb-links">
-                <a href="#home" className="fbl soft-mono">博客</a>
-                <a href={`https://${PROFILE.github}`} className="fbl soft-mono">GitHub</a>
-                <a href={`mailto:${PROFILE.email}`} className="fbl soft-mono">Email</a>
-                <a href="#footer" className="fbl soft-mono">RSS</a>
-                <a href="#footer" className="fbl soft-mono">Sitemap</a>
-                <a href="#footer" className="fbl soft-mono">React + Vite</a>
-              </div>
-            </div>
-            <div className="fb-right soft-mono">
-              © 2026 {PROFILE.name} · Crafted with <span className="heart">♡</span> + React + AIGC · Bright Edition
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
