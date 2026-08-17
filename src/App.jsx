@@ -4,7 +4,7 @@ import './App.css'
 const PROFILE = {
   name: '李宜晓',
   subtitle: 'AI 产品 · 商业分析 · 海外业务',
-  siteTitle: 'BRIDGE / 宜晓',
+  siteTitle: '宜晓 · BRIDGE',
   avatarEmoji: '👩‍🎓',
   location: '来自 英国曼彻斯特 / 中国郑州，很高兴遇见你。',
   email: 'liyixiao2022@126.com',
@@ -48,7 +48,7 @@ const POSTS = [
     desc: '围绕课程组队、项目协作等短期合作场景，定义"房间加入—轻量问答—同频地图—留灯连接"核心路径。参与 AIGC 破冰场景设计，协同团队将早期构想转化为可交互 MVP。',
     updated: null,
     updatedLink: '#projects',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20futuristic%20social%20network%20app%20interface%2C%20holographic%20connection%20map%20between%20people%2C%20neon%20purple%20cyan%20glow%2C%20dark%20tech%20background%2C%20hud%20style%2C%20high%20detail&image_size=landscape_16_9',
+    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=bright%20cheerful%20social%20network%20app%20illustration%2C%20soft%20pastel%20colors%20peach%20pink%20mint%20blue%2C%20happy%20young%20people%20connecting%20through%20digital%20map%2C%20minimal%20flat%20design%2C%20warm%20sunlight%2C%20cute%20style&image_size=landscape_16_9',
     cardLink: '#projects',
   },
   {
@@ -60,7 +60,7 @@ const POSTS = [
     desc: '围绕 fancyJobs 等 AI 初创产品独立完成用户分析、内容策划与发布。单篇获 8,834 浏览、795 赞、541 收藏、117 分享，远超 500 赞目标。复盘海外求职用户对 AI 求职的核心关注点。',
     updated: null,
     updatedLink: '#projects',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20data%20growth%20dashboard%20social%20media%2C%20neon%20pink%20and%20purple%20charts%20rising%2C%20xiaohongshu%20style%20content%20cards%2C%20futuristic%20metrics%20display%2C%20holographic%20interface%2C%20dark&image_size=landscape_16_9',
+    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=bright%20cheerful%20social%20media%20growth%20illustration%2C%20pastel%20pink%20coral%20cream%20colors%2C%20upward%20trend%20graph%20with%20sparkles%20and%20hearts%2C%20xiaohongshu%20style%20content%20cards%2C%20soft%20floral%20decorations%2C%20warm%20happy%20vibe%2C%20flat%20design&image_size=landscape_16_9',
     cardLink: '#projects',
   },
   {
@@ -72,7 +72,7 @@ const POSTS = [
     desc: '独立完成英文论文并发表于 Finance & Economics (2024)。围绕星巴克"第三空间"策略开展消费者与案例研究，将调研反馈转化为提升年轻用户黏性、空间体验与品牌沟通的策略建议。',
     updated: null,
     updatedLink: '#projects',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20coffee%20shop%20third%20place%20concept%2C%20neon%20signs%20holographic%20brand%20analysis%20charts%2C%20tokyo%20street%20coffee%20storefront%20at%20night%2C%20purple%20and%20orange%20neon%20lighting%2C%20cinematic&image_size=landscape_16_9',
+    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=warm%20cozy%20coffee%20shop%20illustration%2C%20sunny%20cafe%20storefront%20cream%20beige%20pastel%20orange%20mint%20green%2C%20plants%20and%20flowers%20on%20table%2C%20brand%20strategy%20idea%20bubbles%2C%20soft%20watercolor%20style%2C%20happy%20warm%20feeling&image_size=landscape_16_9',
     cardLink: '#projects',
   },
   {
@@ -84,7 +84,7 @@ const POSTS = [
     desc: '🎓 曼彻斯特大学发展经济学硕士在读，布里斯托大学经济学学士。兼具经济学学术背景与 AIGC 产品实践经验，热爱用产品思维连接技术与商业价值，尤其关注 AI 产品、用户体验与海外市场。',
     updated: null,
     updatedLink: '#about',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20portrait%20of%20confident%20young%20asian%20woman%20product%20manager%2C%20futuristic%20tech%20office%20background%2C%20holographic%20data%20screens%20around%20her%2C%20neon%20purple%20cyan%20lighting%2C%20professional%20cinematic&image_size=landscape_16_9',
+    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=soft%20bright%20portrait%20illustration%20of%20confident%20young%20asian%20woman%20product%20manager%2C%20pastel%20purple%20peach%20cream%20colors%2C%20flowers%20around%2C%20sunny%20cozy%20office%20background%2C%20warm%20gentle%20style%2C%20sparkle%20accents%2C%20dreamy&image_size=landscape_16_9',
     cardLink: '#about',
   },
   {
@@ -96,7 +96,7 @@ const POSTS = [
     desc: '🏦 中国光大银行零售实习生 + 中国银行大堂经理助理。协助客户信息核对、金融产品推广、市场调研与业务数据整理，观察信用卡、账户与转账等业务中的用户痛点与需求。',
     updated: null,
     updatedLink: '#experience',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20futuristic%20banking%20finance%20data%20center%2C%20neon%20green%20and%20cyan%20holographic%20stock%20charts%2C%20digital%20currency%20flow%2C%20dark%20glass%20office%2C%20hud%20interface%20panels%2C%20high%20detail&image_size=landscape_16_9',
+    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=warm%20bright%20finance%20banking%20illustration%2C%20sage%20green%20cream%20soft%20blue%20pastel%20colors%2C%20friendly%20bank%20office%20with%20data%20charts%20flowers%2C%20flat%20minimal%20design%2C%20happy%20sunny%20atmosphere%2C%20sparkle%20details&image_size=landscape_16_9',
     cardLink: '#experience',
   },
   {
@@ -108,7 +108,7 @@ const POSTS = [
     desc: '🇬🇧 曼彻斯特大学｜发展经济学与政策 硕士 (2025-2026) · 布里斯托大学｜经济学 学士 (2022-2025)。核心课程覆盖微观/宏观经济学、计量经济学、运营管理、统计学、公共部门经济分析等。',
     updated: null,
     updatedLink: '#education',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20uk%20university%20campus%20scene%2C%20historic%20buildings%20with%20neon%20holographic%20holograms%20of%20economics%20equations%2C%20manchester%20bristol%20style%2C%20purple%20blue%20neon%20night%2C%20magical&image_size=landscape_16_9',
+    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=dreamy%20bright%20UK%20university%20campus%20illustration%2C%20historic%20stone%20buildings%20with%20cherry%20blossom%20and%20sunlight%2C%20pastel%20lavender%20peach%20mint%20colors%2C%20economics%20books%20and%20flowers%2C%20soft%20watercolor%20style%2C%20warm%20hopeful&image_size=landscape_16_9',
     cardLink: '#education',
   },
   {
@@ -120,7 +120,7 @@ const POSTS = [
     desc: '📊 产品与研究：产品需求(88%)、用户研究(90%)、竞品分析(85%)、AIGC设计(88%)；💻 数据与工具：Office(92%)、Figma(78%)、Stata/R(72%)、AI提效(90%)；📝 内容运营：小红书(88%)、文案(85%)、双语(90%)。',
     updated: null,
     updatedLink: '#skills',
-    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20skill%20tree%20holographic%20radar%20chart%20interface%2C%20three%20pillars%20product%20research%20data%20content%2C%20neon%20purple%20cyan%20pink%20progress%20bars%2C%20dark%20background%2C%20hud%20design%2C%203d%20depth&image_size=landscape_16_9',
+    cover: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cheerful%20bright%20skill%20tree%20illustration%2C%20three%20pillars%20product%20data%20content%2C%20pastel%20pink%20mint%20lavender%20yellow%20rainbow%20progress%20bars%2C%20flowers%20and%20sparkles%20decoration%2C%20soft%20cream%20background%2C%20flat%20cute%20design&image_size=landscape_16_9',
     cardLink: '#skills',
   },
 ]
@@ -209,18 +209,18 @@ function formatUptime() {
 }
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState('dark')
+  const [darkMode, setDarkMode] = useState('light')
   const [musicPlaying, setMusicPlaying] = useState(false)
   const [musicPanel, setMusicPanel] = useState(false)
   const [settingsPanel, setSettingsPanel] = useState(false)
   const [settingsTab, setSettingsTab] = useState('外观')
-  const [hue, setHue] = useState(270)
+  const [hue, setHue] = useState(340)
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [rightPanel, setRightPanel] = useState(true)
   const [uptime, setUptime] = useState(formatUptime())
   const [activeCat, setActiveCat] = useState('主页')
-  const [currentSong] = useState({ title: 'Neon Dreams', artist: 'Synthwave Collective', album: 'Cyber 2077' })
+  const [currentSong] = useState({ title: 'Sunny Day', artist: 'Acoustic Vibes', album: 'Morning Bloom' })
   const [time, setTime] = useState(new Date())
 
   useEffect(() => {
@@ -238,19 +238,19 @@ export default function App() {
     <div className="rainzt-app" style={{ '--theme-hue': `${hue}deg` }} data-mode={darkMode}>
       {/* 背景层 */}
       <div className="bg-layer">
-        <div className="bg-grid"></div>
-        <div className="bg-scanline"></div>
-        <div className="bg-glow bg-glow-tl"></div>
-        <div className="bg-glow bg-glow-br"></div>
+        <div className="bg-dots"></div>
+        <div className="bg-blob bg-blob-1"></div>
+        <div className="bg-blob bg-blob-2"></div>
+        <div className="bg-blob bg-blob-3"></div>
       </div>
 
       {/* 顶部工具栏 */}
       <header className="top-bar">
         <div className="top-bar-left">
           <a href="#home" className="site-logo">
-            <span className="logo-bracket">[</span>
+            <span className="logo-bloom">✿</span>
             <span className="logo-text">{PROFILE.siteTitle}</span>
-            <span className="logo-bracket">]</span>
+            <span className="logo-bloom">✿</span>
           </a>
         </div>
 
@@ -259,7 +259,7 @@ export default function App() {
             <span className="tb-icon">⌕</span>
           </button>
 
-          <button className="tb-btn" onClick={() => alert('💡 字体提示：当前已使用赛博朋克字体组合 Orbitron + Share Tech Mono + Rajdhani')} title="切换字体">
+          <button className="tb-btn" onClick={() => alert('🌷 当前字体：圆润柔和字体组合 Quicksand + Poppins + Noto Sans SC')} title="切换字体">
             <span className="tb-icon">Aa</span>
           </button>
 
@@ -267,7 +267,7 @@ export default function App() {
             <span className="tb-icon">{musicPlaying ? '♫' : '♪'}</span>
           </button>
 
-          <button className="tb-btn" onClick={() => alert('🌌 背景视频模式提示：把 MP4 放到 /public/bg.mp4 即可启用赛博朋克动态背景！')} title="背景视频">
+          <button className="tb-btn" onClick={() => alert('🌼 提示：上传 bg.mp4 到 /public 目录即可启用柔和动态背景！')} title="背景视频">
             <span className="tb-icon">▶</span>
           </button>
 
@@ -298,7 +298,7 @@ export default function App() {
           <div className="search-inner">
             <input
               className="search-input"
-              placeholder="> 搜索项目 / 技能 / 经历..."
+              placeholder="搜索项目 / 技能 / 经历..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               autoFocus
@@ -308,13 +308,13 @@ export default function App() {
                 POSTS.filter(p => (p.title + p.desc + p.tags.join()).toLowerCase().includes(searchQuery.toLowerCase()))
                   .map((p, i) => (
                     <a key={i} href={p.cardLink} className="search-result-item" onClick={() => setSearchOpen(false)}>
-                      <span className="sr-cat mono">{p.category}</span>
+                      <span className="sr-cat soft-mono">{p.category}</span>
                       <span className="sr-title">{p.title}</span>
                     </a>
                   ))
               ) : (
-                <div className="search-hint mono">
-                  <span className="sh-title">// 热门搜索：</span>
+                <div className="search-hint soft-mono">
+                  <span className="sh-title">✨ 热门搜索：</span>
                   <span className="sh-tag">AI产品</span>
                   <span className="sh-tag">LinkUp</span>
                   <span className="sh-tag">小红书</span>
@@ -340,9 +340,9 @@ export default function App() {
           {settingsTab === '外观' && (
             <div className="sp-content">
               <div className="sp-row">
-                <label className="sp-label mono">主题色相</label>
+                <label className="sp-label soft-mono">主题色调</label>
                 <input type="range" min="0" max="360" value={hue} onChange={e => setHue(+e.target.value)} className="sp-slider" />
-                <span className="sp-value mono">{hue}°</span>
+                <span className="sp-value soft-mono">{hue}°</span>
               </div>
               <div className="sp-row sp-btn-row">
                 <button className="sp-bg-btn active">横幅壁纸</button>
@@ -357,18 +357,18 @@ export default function App() {
           {settingsTab === '壁纸' && (
             <div className="sp-content sp-wallpapers">
               {Array.from({ length: 9 }).map((_, i) => (
-                <div key={i} className={`sp-wp-item ${i === 0 ? 'active' : ''}`} style={{ background: `linear-gradient(${135 + i * 20}deg, hsl(${hue}, 70%, ${20 + i * 3}%), hsl(${(hue + 60) % 360}, 70%, ${15 + i * 3}%))` }}></div>
+                <div key={i} className={`sp-wp-item ${i === 0 ? 'active' : ''}`} style={{ background: `linear-gradient(${135 + i * 20}deg, hsl(${hue}, 75%, ${88 - i * 2}%), hsl(${(hue + 50) % 360}, 80%, ${82 - i * 2}%))` }}></div>
               ))}
             </div>
           )}
           {settingsTab === '偏好' && (
             <div className="sp-content">
-              <div className="sp-hint mono">
-                // 偏好设置占位<br />
-                // - 动效开关<br />
-                // - 欢迎弹窗<br />
-                // - 音乐自动播放<br />
-                // （可后续扩展）
+              <div className="sp-hint soft-mono">
+                ✨ 偏好设置（可后续扩展）<br />
+                · 动效开关<br />
+                · 欢迎弹窗<br />
+                · 音乐自动播放<br />
+                · 字体大小调整
               </div>
             </div>
           )}
@@ -379,22 +379,22 @@ export default function App() {
       {musicPanel && (
         <div className="music-panel">
           <div className="mp-cover">
-            <div className="mp-cover-art" style={{ background: `linear-gradient(135deg, hsl(${hue}, 70%, 25%), hsl(${(hue + 180) % 360}, 70%, 20%))` }}>
+            <div className="mp-cover-art" style={{ background: `linear-gradient(135deg, hsl(${hue}, 80%, 85%), hsl(${(hue + 50) % 360}, 80%, 78%))` }}>
               <div className="mp-vinyl"></div>
             </div>
           </div>
           <div className="mp-info">
             <div className="mp-title">{currentSong.title}</div>
-            <div className="mp-artist mono">{currentSong.artist} / {currentSong.album}</div>
+            <div className="mp-artist soft-mono">{currentSong.artist} / {currentSong.album}</div>
           </div>
-          <div className="mp-lyrics mono">
+          <div className="mp-lyrics soft-mono">
             {[
-              'Neon lights across the sky',
-              'Data streams forever flowing',
-              'In the city of tomorrow',
-              'We code our dreams together',
-              'Every heartbeat synchronized',
-              'With the rhythm of the future',
+              'Sunlight dances through the window',
+              'Coffee steam and morning glow',
+              'Every moment feels so gentle',
+              'This is where my dreams will grow',
+              'Flowers blooming in the garden',
+              'Love and laughter everywhere',
             ].map((line, i) => (
               <div key={i} className={`mp-lyric-line ${i === 1 ? 'active' : ''}`}>{line}</div>
             ))}
@@ -411,7 +411,7 @@ export default function App() {
           <div className="mp-progress">
             <div className="mp-progress-bar" style={{ width: '32%' }}></div>
           </div>
-          <div className="mp-time mono">
+          <div className="mp-time soft-mono">
             <span>01:12</span><span>03:45</span>
           </div>
         </div>
@@ -429,8 +429,9 @@ export default function App() {
                 className={`ln-item ${activeCat === cat.name ? 'active' : ''}`}
                 onClick={() => setActiveCat(cat.name)}
               >
+                <span className="ln-dot">✿</span>
                 <span className="ln-name">{cat.name}</span>
-                {cat.count && <span className="ln-count mono">{cat.count}</span>}
+                {cat.count && <span className="ln-count soft-mono">{cat.count}</span>}
               </a>
             ))}
           </div>
@@ -442,23 +443,22 @@ export default function App() {
           <section id="home" className="hero-banner">
             <div className="hb-bg">
               <div className="hb-pattern"></div>
-              <div className="hb-scan"></div>
               <div className="hb-glow"></div>
             </div>
             <div className="hb-content">
-              <div className="hb-time mono">{timeStr}</div>
-              <div className="hb-date mono">{dateStr}</div>
+              <div className="hb-time soft-mono">{timeStr}</div>
+              <div className="hb-date soft-mono">{dateStr}</div>
               <h1 className="hb-title">
-                <span className="hbt-greet">{greeting}，访客。</span>
-                <span className="hbt-name glitch-text" data-text={PROFILE.name}>{PROFILE.name}</span>
-                <span className="hbt-sub mono">{PROFILE.subtitle}</span>
+                <span className="hbt-greet">{greeting}，访客 ♡</span>
+                <span className="hbt-name shimmer-text">{PROFILE.name}</span>
+                <span className="hbt-sub soft-mono">{PROFILE.subtitle}</span>
               </h1>
               <div className="hb-cta-row">
                 <a href="#projects" className="hb-cta hb-cta-primary">
-                  <span className="hbc-icon">▸</span> 查看项目作品
+                  <span className="hbc-icon">✿</span> 查看项目作品
                 </a>
                 <a href="#contact" className="hb-cta hb-cta-secondary">
-                  <span className="hbc-icon">✉</span> 联系我
+                  <span className="hbc-icon">♡</span> 联系我
                 </a>
               </div>
               <div className="hb-progress">
@@ -468,7 +468,7 @@ export default function App() {
                   { label: '周度', percent: Math.floor(((new Date().getDay() || 7) / 7) * 100) },
                 ].map(p => (
                   <div key={p.label} className="hbp-item">
-                    <div className="hbp-label mono"><span>{p.label}进度</span><span>{p.percent}%</span></div>
+                    <div className="hbp-label soft-mono"><span>{p.label}进度</span><span>{p.percent}%</span></div>
                     <div className="hbp-bar"><div className="hbp-fill" style={{ width: `${p.percent}%` }}></div></div>
                   </div>
                 ))}
@@ -489,9 +489,9 @@ export default function App() {
                   </a>
                   <div className="post-body">
                     <div className="post-meta-top">
-                      <a href={post.categoryHref} className="post-cat mono">{post.category}</a>
+                      <a href={post.categoryHref} className="post-cat soft-mono">{post.category}</a>
                       {post.updated && (
-                        <a href={post.updatedLink} className="post-updated mono">· 已于 {post.updated} 更新</a>
+                        <a href={post.updatedLink} className="post-updated soft-mono">· 已于 {post.updated} 更新</a>
                       )}
                     </div>
                     <a href={post.cardLink} className="post-title-link">
@@ -500,7 +500,7 @@ export default function App() {
                     <p className="post-desc">{post.desc}</p>
                     <div className="post-tags">
                       {post.tags.map((tag, ti) => (
-                        <a key={ti} href={post.tagsHref[ti]} className="post-tag mono">
+                        <a key={ti} href={post.tagsHref[ti]} className="post-tag soft-mono">
                           #{tag}
                         </a>
                       ))}
@@ -510,25 +510,25 @@ export default function App() {
               ))}
             </div>
             <div className="posts-pagination">
-              <button className="pg-btn mono">下一页 →</button>
+              <button className="pg-btn soft-mono">下一页 →</button>
             </div>
           </section>
 
           {/* 技能详情区块 */}
           <section id="skills" className="section-block">
             <div className="section-header">
-              <h2 className="section-title neon-text-purple">[ 技能栈详情 ]</h2>
-              <span className="section-sub mono">// SKILL_MATRIX.exe</span>
+              <h2 className="section-title pastel-text-purple">✿ 技能栈详情 ✿</h2>
+              <span className="section-sub soft-mono">· Skill Matrix ·</span>
             </div>
             <div className="skills-detail-grid">
               {['产品与研究', '数据与工具', '内容与运营'].map(cat => (
                 <div key={cat} className="skill-column">
-                  <div className="sc-header mono">{cat}</div>
+                  <div className="sc-header soft-mono">{cat}</div>
                   {SKILLS.filter(s => s.cat === cat).map(s => (
                     <div key={s.name} className="sc-item">
                       <div className="sc-label-row">
                         <span className="sc-name">{s.name}</span>
-                        <span className="sc-level mono">{s.level}%</span>
+                        <span className="sc-level soft-mono">{s.level}%</span>
                       </div>
                       <div className="sc-bar">
                         <div className="sc-fill" style={{ width: `${s.level}%` }}></div>
@@ -543,8 +543,8 @@ export default function App() {
           {/* 实习经历 */}
           <section id="experience" className="section-block">
             <div className="section-header">
-              <h2 className="section-title neon-text-cyan">[ 实习 / 校园经历 ]</h2>
-              <span className="section-sub mono">// EXPERIENCE_LOG.db</span>
+              <h2 className="section-title pastel-text-cyan">✿ 实习 / 校园经历 ✿</h2>
+              <span className="section-sub soft-mono">· Experience Log ·</span>
             </div>
             <div className="timeline">
               {EXPERIENCES.map((ex, i) => (
@@ -553,9 +553,9 @@ export default function App() {
                   <div className="tl-card">
                     <div className="tl-top">
                       <h3 className="tl-title">{ex.title}</h3>
-                      <span className="tl-time mono">{ex.time}</span>
+                      <span className="tl-time soft-mono">{ex.time}</span>
                     </div>
-                    <div className="tl-role mono">{ex.role}</div>
+                    <div className="tl-role soft-mono">{ex.role}</div>
                     <ul className="tl-points">
                       {ex.points.map((p, pi) => (<li key={pi}>{p}</li>))}
                     </ul>
@@ -568,8 +568,8 @@ export default function App() {
           {/* 教育背景 */}
           <section id="education" className="section-block">
             <div className="section-header">
-              <h2 className="section-title neon-text-pink">[ 教育背景 ]</h2>
-              <span className="section-sub mono">// EDUCATION_RECORD.dat</span>
+              <h2 className="section-title pastel-text-pink">✿ 教育背景 ✿</h2>
+              <span className="section-sub soft-mono">· Education Record ·</span>
             </div>
             <div className="edu-grid">
               {EDUCATIONS.map((ed, i) => (
@@ -578,17 +578,17 @@ export default function App() {
                     <div className="edu-degree-icon">🎓</div>
                     <div className="edu-top-text">
                       <h3 className="edu-school">{ed.school}</h3>
-                      <div className="edu-degree mono">{ed.degree}</div>
+                      <div className="edu-degree soft-mono">{ed.degree}</div>
                     </div>
                   </div>
-                  <div className="edu-meta mono">
+                  <div className="edu-meta soft-mono">
                     <span>📍 {ed.location}</span>
                     <span>📅 {ed.time}</span>
                   </div>
                   <div className="edu-courses">
-                    <div className="ec-label mono">CORE COURSES:</div>
+                    <div className="ec-label soft-mono">CORE COURSES:</div>
                     <div className="ec-list">
-                      {ed.courses.map((c, ci) => (<span key={ci} className="ec-chip mono">{c}</span>))}
+                      {ed.courses.map((c, ci) => (<span key={ci} className="ec-chip soft-mono">{c}</span>))}
                     </div>
                   </div>
                 </div>
@@ -599,8 +599,8 @@ export default function App() {
           {/* 联系方式 */}
           <section id="contact" className="section-block">
             <div className="section-header">
-              <h2 className="section-title neon-text-yellow">[ GET IN TOUCH ]</h2>
-              <span className="section-sub mono">// CONTACT_CHANNELS.json</span>
+              <h2 className="section-title pastel-text-yellow">✿ Get In Touch ✿</h2>
+              <span className="section-sub soft-mono">· Contact Channels ·</span>
             </div>
             <div className="contact-grid">
               {[
@@ -611,7 +611,7 @@ export default function App() {
               ].map((c, i) => (
                 <a key={i} href={c.href} className="contact-card">
                   <div className="cc-icon">{c.icon}</div>
-                  <div className="cc-label mono">{c.label}</div>
+                  <div className="cc-label soft-mono">{c.label}</div>
                   <div className="cc-value">{c.value}</div>
                 </a>
               ))}
@@ -621,8 +621,8 @@ export default function App() {
           {/* About */}
           <section id="about" className="section-block">
             <div className="section-header">
-              <h2 className="section-title neon-text-green">[ 关于我 ]</h2>
-              <span className="section-sub mono">// ABOUT_ME.md</span>
+              <h2 className="section-title pastel-text-green">✿ 关于我 ✿</h2>
+              <span className="section-sub soft-mono">· About Me ·</span>
             </div>
             <div className="about-card-large">
               <div className="acl-left">
@@ -636,7 +636,7 @@ export default function App() {
               <div className="acl-right">
                 <div className="acl-name-row">
                   <h3 className="acl-name">{PROFILE.name}</h3>
-                  <span className="acl-status mono">● STATUS: OPEN_TO_WORK</span>
+                  <span className="acl-status soft-mono">● STATUS: 正在找工作 ♡</span>
                 </div>
                 <div className="acl-role">{PROFILE.subtitle}</div>
                 <div className="acl-bio">
@@ -665,7 +665,7 @@ export default function App() {
                 <div className="rp-status-dot"></div>
               </div>
               <div className="rp-name">{PROFILE.name}</div>
-              <div className="rp-sub mono">{PROFILE.subtitle}</div>
+              <div className="rp-sub soft-mono">{PROFILE.subtitle}</div>
             </div>
 
             <div className="rp-social-links">
@@ -676,35 +676,35 @@ export default function App() {
             </div>
 
             <div className="rp-section rp-welcome">
-              <div className="rp-section-title mono">// 欢迎消息</div>
+              <div className="rp-section-title soft-mono">✨ 欢迎消息</div>
               <p className="rp-welcome-text">
-                欢迎来到我的赛博空间！这里是我的作品集主页，整理了我的项目、技能、经历与联系方式。
-                有任何合作意向或只是想打个招呼，都欢迎随时联系！
+                欢迎来到我的小站！这里是我的作品集主页，整理了我的项目、技能、经历与联系方式。
+                有任何合作意向或只是想打个招呼，都欢迎随时联系 ♡
               </p>
-              <button className="rp-welcome-close mono" onClick={() => setRightPanel(false)}>[ 关闭欢迎提示 ]</button>
+              <button className="rp-welcome-close soft-mono">· 关闭欢迎提示 ·</button>
             </div>
 
             <div className="rp-section">
-              <div className="rp-section-title mono">// 社交链接导航</div>
+              <div className="rp-section-title soft-mono">✿ 社交链接导航</div>
               <div className="rp-social-grid">
                 <a href={`https://${PROFILE.github}`} className="rp-sg-item" title="GitHub">
-                  <span className="rp-sg-icon">⌨</span><span className="rp-sg-label mono">博客</span>
+                  <span className="rp-sg-icon">📝</span><span className="rp-sg-label soft-mono">博客</span>
                 </a>
                 <a href={`https://${PROFILE.github}`} className="rp-sg-item" title="GitHub">
-                  <span className="rp-sg-icon">🐙</span><span className="rp-sg-label mono">GitHub</span>
+                  <span className="rp-sg-icon">🐙</span><span className="rp-sg-label soft-mono">GitHub</span>
                 </a>
                 <a href={`mailto:${PROFILE.email}`} className="rp-sg-item" title="Email">
-                  <span className="rp-sg-icon">✉</span><span className="rp-sg-label mono">邮件</span>
+                  <span className="rp-sg-icon">✉</span><span className="rp-sg-label soft-mono">邮件</span>
                 </a>
                 <a href="#contact" className="rp-sg-item" title="联系方式">
-                  <span className="rp-sg-icon">💬</span><span className="rp-sg-label mono">微信</span>
+                  <span className="rp-sg-icon">💬</span><span className="rp-sg-label soft-mono">微信</span>
                 </a>
               </div>
             </div>
 
             <div className="rp-section">
-              <div className="rp-section-title mono">// 运行时间</div>
-              <div className="rp-uptime mono">
+              <div className="rp-section-title soft-mono">⏱ 运行时间</div>
+              <div className="rp-uptime soft-mono">
                 本站已经运行<br />
                 <span className="ru-num">{uptime.days}</span> 天
                 <span className="ru-num">{String(uptime.hours).padStart(2, '0')}</span> 时
@@ -714,7 +714,7 @@ export default function App() {
             </div>
 
             <div className="rp-section">
-              <div className="rp-section-title mono">// 地理位置</div>
+              <div className="rp-section-title soft-mono">📍 地理位置</div>
               <div className="rp-location">
                 {PROFILE.location}
               </div>
@@ -722,7 +722,7 @@ export default function App() {
 
             <div className="rp-section rp-ornament">
               <div className="ornament-row">
-                {['🍀', '🌸', '⭐', '🌙', '🔮', '💫', '🦋', '🌌', '🎴', '🎐'].map((e, i) => (
+                {['🌸', '🌼', '🌿', '🦋', '✨', '🌷', '🍀', '🌻', '💐', '🌺'].map((e, i) => (
                   <span key={i} className="ornament-item" style={{ animationDelay: `${i * 0.15}s` }}>{e}</span>
                 ))}
               </div>
@@ -733,12 +733,12 @@ export default function App() {
 
       {/* 左下角音乐卡 */}
       <div className="bottom-music-card" onClick={() => { setMusicPanel(v => !v); setSettingsPanel(false) }}>
-        <div className={`bmc-cover ${musicPlaying ? 'spin' : ''}`} style={{ background: `linear-gradient(135deg, hsl(${hue}, 70%, 30%), hsl(${(hue + 180) % 360}, 70%, 20%))` }}>
+        <div className={`bmc-cover ${musicPlaying ? 'spin' : ''}`} style={{ background: `linear-gradient(135deg, hsl(${hue}, 85%, 82%), hsl(${(hue + 50) % 360}, 85%, 75%))` }}>
           <div className="bmc-vinyl-hole"></div>
         </div>
         <div className="bmc-info">
           <div className="bmc-title">{currentSong.title}</div>
-          <div className="bmc-artist mono">{currentSong.artist} / {currentSong.album}</div>
+          <div className="bmc-artist soft-mono">{currentSong.artist} / {currentSong.album}</div>
         </div>
       </div>
 
@@ -746,46 +746,46 @@ export default function App() {
       <footer id="footer" className="site-footer">
         <div className="footer-inner">
           <div className="footer-section">
-            <div className="fs-title mono">// CATEGORY_NAV</div>
+            <div className="fs-title soft-mono">✿ 分类导航</div>
             <div className="category-badges">
               {CATEGORY_BADGES.map(cb => (
                 <a key={cb.name} href={`#${cb.name === '个人简介' ? 'about' : cb.name === '项目作品' ? 'projects' : cb.name === '技能栈' ? 'skills' : cb.name === '实习经历' ? 'experience' : 'education'}`} className={`cat-badge cat-badge-${cb.color}`}>
                   <span>{cb.name}</span>
-                  <span className="cat-badge-count mono">{cb.count}</span>
+                  <span className="cat-badge-count soft-mono">{cb.count}</span>
                 </a>
               ))}
             </div>
           </div>
 
           <div className="footer-section">
-            <div className="fs-title mono">// TAG_CLOUD</div>
+            <div className="fs-title soft-mono">✿ 标签云</div>
             <div className="tag-cloud">
               {TAGS.map((t, i) => (
-                <a key={t} href="#projects" className="tag-cloud-item mono" style={{
+                <a key={t} href="#projects" className="tag-cloud-item soft-mono" style={{
                   fontSize: `${11 + (i % 5) * 2}px`,
                   opacity: 0.55 + (i % 7) * 0.06,
                 }}>#{t}</a>
               ))}
-              <a href="#footer" className="tag-cloud-item tci-more mono">+ 更多</a>
+              <a href="#footer" className="tag-cloud-item tci-more soft-mono">+ 更多</a>
             </div>
           </div>
 
           <div className="footer-section footer-bottom">
             <div className="fb-left">
-              <div className="build-info mono">
-                <button className="bi-toggle">[ 展开构建信息 ▾ ]</button>
+              <div className="build-info soft-mono">
+                <button className="bi-toggle">· 展开构建信息 ·</button>
               </div>
               <div className="fb-links">
-                <a href="#home" className="fbl mono">博客</a>
-                <a href={`https://${PROFILE.github}`} className="fbl mono">GitHub</a>
-                <a href={`mailto:${PROFILE.email}`} className="fbl mono">Email</a>
-                <a href="#footer" className="fbl mono">RSS</a>
-                <a href="#footer" className="fbl mono">Sitemap</a>
-                <a href="#footer" className="fbl mono">React + Vite</a>
+                <a href="#home" className="fbl soft-mono">博客</a>
+                <a href={`https://${PROFILE.github}`} className="fbl soft-mono">GitHub</a>
+                <a href={`mailto:${PROFILE.email}`} className="fbl soft-mono">Email</a>
+                <a href="#footer" className="fbl soft-mono">RSS</a>
+                <a href="#footer" className="fbl soft-mono">Sitemap</a>
+                <a href="#footer" className="fbl soft-mono">React + Vite</a>
               </div>
             </div>
-            <div className="fb-right mono">
-              © 2026 {PROFILE.name} · Crafted with <span className="heart">❤</span> + React + AIGC · Cyberpunk Edition
+            <div className="fb-right soft-mono">
+              © 2026 {PROFILE.name} · Crafted with <span className="heart">♡</span> + React + AIGC · Bright Edition
             </div>
           </div>
         </div>
