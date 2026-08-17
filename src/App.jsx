@@ -127,7 +127,7 @@ function TypewriterText({ text, speed = 80 }) {
   )
 }
 
-function Navbar({ onDownload, onMusicToggle, musicPlaying }) {
+function Navbar({ onDownload, onMusicToggle, musicPlaying, themeMode, onToggleTheme }) {
   const links = [
     { href: '#hero', label: 'HOME' },
     { href: '#about', label: 'ABOUT' },
@@ -136,88 +136,177 @@ function Navbar({ onDownload, onMusicToggle, musicPlaying }) {
     { href: '#contact', label: 'CONTACT' },
   ]
   return (
-    <nav className="navbar">
-      <div className="container navbar-inner">
-        <div className="navbar-logo neon-text-purple glitch-hover">
-          {'<YELENA/>'}
-        </div>
-        <div className="navbar-links">
-          {links.map((l) => (
-            <a key={l.href} href={l.href}>{l.label}</a>
-          ))}
-        </div>
-        <div className="navbar-actions">
+    <nav className="navbar navbar-v2">
+      <div className="navbar-v2-inner">
+        <div className="navbar-v2-left">
+          <button className="theme-toggle-v2" onClick={onToggleTheme}>
+            {themeMode === 'cyber' ? (
+              <>
+              <span className="tt-icon">🌃</span>
+              <span className="tt-label">CYBER</span>
+            </>
+            ) : (
+              <>
+              <span className="tt-icon">🔍</span>
+              <span className="tt-label">CLEAN</span>
+            </>
+            )}
+          </button>
           <button
-            className={`music-btn ${musicPlaying ? 'playing' : ''}`}
+            className={`music-btn music-btn-v2 ${musicPlaying ? 'playing' : ''}`}
             onClick={onMusicToggle}
             title={musicPlaying ? '暂停音乐' : '播放背景音乐'}
           >
-            {musicPlaying ? '🎵' : '🔇'}
+            {musicPlaying ? '♪' : '♩'}
           </button>
-          <button className="btn-cyber btn-cyber-secondary" onClick={onDownload} style={{ padding: '8px 18px', fontSize: '0.75rem' }}>
-            📄 简历
+        </div>
+
+        <div className="navbar-v2-center">
+          {links.map((l) => (
+            <a key={l.href} href={l.href} className="nav-link-v2">{l.label}</a>
+          ))}
+        </div>
+
+        <div className="navbar-v2-right">
+          <button className="btn-cyber btn-cyber-sm" onClick={onDownload}>
+            <span className="btn-icon">↓</span>
+            <span>RESUME</span>
           </button>
-          <button className="mobile-menu-btn">☰</button>
         </div>
       </div>
     </nav>
   )
 }
 
-function HeroSection() {
+function HeroSectionV2() {
   return (
-    <section id="hero" className="hero">
-      <div className="container">
-        <div className="hero-grid">
-          <div className="hero-text">
-            <div className="hero-greeting mono">{ABOUT_DATA.greeting}</div>
-            <h1 className="hero-name neon-text-purple">
-              {ABOUT_DATA.name.split('').map((c, i) => (
-                <span key={i} className="glitch-char" style={{ animationDelay: `${i * 0.15}s` }}>
-                  {c}
-                </span>
-              ))}
-            </h1>
-            <div className="hero-role neon-text-cyan">
-              <TypewriterText text={ABOUT_DATA.role} speed={100} />
+    <section id="hero" className="hero-v2">
+      <div className="hero-v2-bg">
+        <div className="hero-v2-img-wrap">
+          <img
+            src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20fashion%20portrait%20of%20a%20cool%20asian%20girl%20in%20prison%20orange%20jumpsuit%20holding%20mugshot%20sign%20neon%20lights%20dark%20mood%20cinematic&image_size=portrait_4_3"
+            alt="Yelena Portrait"
+            className="hero-v2-img"
+            onError={(e) => { e.currentTarget.style.display = 'none' }}
+          />
+          <div className="hero-v2-img-fallback">
+            <div className="fallback-pattern"></div>
+            <div className="fallback-text mono">
+              ╔══════════════════╗<br/>
+              ║   ADD YOUR PHOTO ║<br/>
+              ║   PLACE: /public/me.jpg<br/>
+              ╚══════════════════╝
             </div>
-            <p className="hero-desc">{ABOUT_DATA.description}</p>
-            <div className="hero-ctas">
-              <a href="#projects" className="btn-cyber">
-                查看作品 →
-              </a>
-              <a href="#contact" className="btn-cyber btn-cyber-secondary">
-                联系我 💬
-              </a>
+          </div>
+          <div className="hero-v2-overlay-v"></div>
+          <div className="hero-v2-grid"></div>
+          <div className="hero-v2-scan"></div>
+          <div className="hero-v2-vignette"></div>
+        </div>
+      </div>
+
+      <div className="hero-v2-content">
+        <div className="hero-v2-info">
+          <div className="info-card-top">
+            <div className="info-avatar-wrap">
+              <div className="info-avatar-ring"></div>
+              <div className="info-avatar">
+                <span className="avatar-emoji">👤</span>
+              </div>
+              <span className="status-dot"></span>
+            </div>
+            <div className="info-name-block">
+              <div className="info-name-tag mono">// NAME_</div>
+              <h1 className="info-name glitch-hover">
+                {ABOUT_DATA.name.split('').map((c, i) => (
+                  <span key={i} style={{ animationDelay: `${i * 0.08}s` }} className="glitch-char">{c}</span>
+                ))}
+              </h1>
             </div>
           </div>
 
-          <div className="hero-visual">
-            <div className="hud-corner hud-tl mono">ID: 0001<br/>STATUS: ONLINE</div>
-            <div className="hud-corner hud-tr mono">SYS: OK<br/>PING: 12ms</div>
-            <div className="hud-corner hud-bl mono">v2.4.1<br/>CYBER_MODE</div>
-            <div className="hud-corner hud-br mono">LOC: EARTH<br/>TEMP: 23°C</div>
+          <div className="info-card-divider"></div>
 
-            <div className="photo-frame">
-              <div className="photo-inner">
-                <div className="scanline"></div>
-                <div className="photo-placeholder">
-                  <span className="placeholder-icon">📷</span>
-                  在这里放入<br/>你的帅气照片<br/><br/>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--cyber-purple)' }}>
-                    把图片放到 public/ 目录下<br/>然后替换代码中的路径
-                  </span>
+          <div className="info-role-block">
+            <div className="info-label mono">ROLE / TITLE</div>
+            <div className="info-role neon-text-cyan">
+              <TypewriterText text={ABOUT_DATA.role} speed={90} />
+            </div>
+          </div>
+
+          <div className="info-slogan-block">
+            <div className="info-label mono">SLOGAN_</div>
+            <p className="info-slogan">"{ABOUT_DATA.slogan}"</p>
+          </div>
+
+          <div className="info-card-divider"></div>
+
+          <div className="info-contact-list">
+            {CONTACT_DATA.slice(0, 3).map((c) => (
+              <div key={c.label} className="info-contact-item">
+                <span className="contact-icon">{c.icon}</span>
+                <div className="contact-meta">
+                  <span className="contact-label mono">{c.label}</span>
+                  <span className="contact-value">{c.value}</span>
                 </div>
               </div>
-            </div>
+            ))}
+          </div>
+
+          <div className="info-card-divider"></div>
+
+          <div className="info-cta-row">
+            <a href="#projects" className="btn-cyber btn-cyber-full">
+              <span>EXPLORE WORK</span>
+              <span className="btn-arrow">→</span>
+            </a>
+            <a href="#contact" className="btn-cyber btn-cyber-full btn-cyber-secondary">
+              <span>GET IN TOUCH</span>
+              <span className="btn-arrow">✉</span>
+            </a>
+          </div>
+
+          <div className="info-nav-row">
+            {['ABOUT', 'SKILLS', 'PROJECTS'].map((label) => (
+              <a key={label} href={`#${label.toLowerCase()}`} className="info-nav-chip mono">
+                {label} ↓
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="hero-v2-hud-top-right mono">
+          <div className="hud-line">
+          <span className="hud-key">SYS</span>
+          <span className="hud-val hud-ok">ONLINE</span>
+        </div>
+          <div className="hud-line">
+          <span className="hud-key">MODE</span>
+          <span className="hud-val hud-cyber">CYBER_2.0</span>
+        </div>
+          <div className="hud-line">
+          <span className="hud-key">USER</span>
+          <span className="hud-val">YELENA_001</span>
+        </div>
+        </div>
+
+        <div className="hero-v2-hud-bottom-left mono">
+          <div className="hud-line small">
+            <span className="hud-key">LAT</span><span className="hud-val">53.4808°N</span>
+          </div>
+          <div className="hud-line small">
+            <span className="hud-key">LON</span><span className="hud-val">2.2426°W</span>
+          </div>
+          <div className="hud-line small">
+            <span className="hud-key">STATUS</span><span className="hud-val hud-ok">● AVAILABLE</span>
           </div>
         </div>
       </div>
 
-      <a href="#about" className="scroll-indicator">
-        SCROLL DOWN
-        <div className="scroll-arrow">▼</div>
-      </a>
+      <div className="hero-v2-scroll-indicator mono">
+        <span>SCROLL</span>
+        <div className="scroll-line"></div>
+      </div>
     </section>
   )
 }
@@ -509,21 +598,22 @@ function App() {
   }
 
   return (
-    <>
+    <div className={`app-theme-${themeMode}`}>
       <Navbar
         onDownload={handleDownload}
         onMusicToggle={handleMusicToggle}
         musicPlaying={musicPlaying}
+        themeMode={themeMode}
+        onToggleTheme={toggleTheme}
       />
-      <HeroSection />
+      <HeroSectionV2 />
       <AboutSection />
       <SkillsSection />
       <ProjectsSection />
       <ContactSection onOpenChat={() => setChatOpen(true)} />
       <Footer onTriggerEgg={triggerEgg} />
       <ChatModal open={chatOpen} onClose={() => setChatOpen(false)} />
-      <ThemeToggle mode={themeMode} onToggle={toggleTheme} />
-    </>
+    </div>
   )
 }
 
