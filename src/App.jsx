@@ -2,100 +2,113 @@ import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
 const ABOUT_DATA = {
-  name: 'Yelena',
-  role: '待填写 · 求职方向',
+  name: '李宜晓',
+  role: 'AI 产品 · 商业分析 · 海外业务 · 管培生',
   greeting: '> SYSTEM INITIALIZING... WELCOME, VISITOR.',
-  slogan: 'Code the Future, Design the Dream.',
-  description: '这里放一段你的自我介绍，比如：你是一名充满热情的XX工程师，热爱技术与创新，擅长XXX。秋招正在寻找机会，希望能加入有创造力的团队！',
+  slogan: 'Bridge the Gap Between AI, Business & People.',
+  description: '你好！我是李宜晓，一名兼具经济学学术背景与 AIGC 产品实践经验的求职者。从英国曼彻斯特大学发展经济学政策硕士，到布里斯托大学经济学学士，我热衷于用产品思维连接技术与商业价值，尤其对 AI 产品、用户体验设计与海外市场有浓厚兴趣。从 LinkUp AI 社交工具的 MVP 落地，到小红书单篇 8.8k+ 浏览的内容增长实践，我坚信「以用户为中心 + 数据驱动」能创造真正有价值的产品。',
   info: [
-    { label: 'LOCATION', value: '城市 · 中国' },
-    { label: 'EDUCATION', value: 'XX大学 · 专业' },
-    { label: 'STATUS', value: '🔥 秋招进行中' },
-    { label: 'INTERESTS', value: '技术 / 设计 / AIGC' },
+    { label: 'LOCATION', value: '英国 / 中国 · 全球可及' },
+    { label: 'EDUCATION', value: '曼彻斯特大学 · 发展经济学硕士' },
+    { label: 'STATUS', value: '🔥 2027 届校招进行中' },
+    { label: 'INTERESTS', value: 'AI 产品 / 用户研究 / 内容增长' },
   ],
 }
 
 const SKILLS_DATA = [
   {
-    category: '开发技能',
+    category: '产品与研究',
     skills: [
-      { name: 'JavaScript / TypeScript', level: 80 },
-      { name: 'React / Vue', level: 75 },
-      { name: 'Node.js / Python', level: 70 },
-      { name: 'HTML / CSS', level: 90 },
+      { name: '产品需求梳理 · PRD', level: 88 },
+      { name: '用户研究 · 消费者分析', level: 90 },
+      { name: '竞品分析 · 市场研究', level: 85 },
+      { name: 'AIGC 产品应用与设计', level: 88 },
     ],
   },
   {
-    category: '工具 & 其他',
+    category: '数据与工具',
     skills: [
-      { name: 'Git / GitHub', level: 85 },
-      { name: 'Figma / 设计', level: 65 },
-      { name: 'AIGC 应用', level: 80 },
-      { name: '项目管理', level: 70 },
+      { name: 'Excel · PPT · Word', level: 92 },
+      { name: 'Figma · 产品原型设计', level: 78 },
+      { name: 'Stata · R 数据分析', level: 72 },
+      { name: 'Codex · Trae · AI 提效', level: 90 },
+    ],
+  },
+  {
+    category: '内容与运营',
+    skills: [
+      { name: '小红书内容策划与增长', level: 88 },
+      { name: '文案撰写 · 产品价值表达', level: 85 },
+      { name: '问卷设计 · 访谈整理', level: 80 },
+      { name: '英语 · 中英双语写作', level: 90 },
     ],
   },
 ]
 
 const PROJECTS_DATA = [
   {
-    tag: 'WEB APP',
-    title: '项目一名称',
-    desc: '这里放项目的简短描述，说明你做了什么、用了什么技术、取得了什么成果（尽量量化）。',
-    tech: ['React', 'Node.js', 'MongoDB', 'TailwindCSS'],
-    stat1: { icon: '⭐', value: '50+ commits' },
-    stat2: { icon: '👥', value: 'Team of 3' },
-    placeholder: '🚀 PROJECT_01',
+    tag: 'AIGC · PRODUCT',
+    title: 'LinkUp AI 社交连接工具',
+    desc: '围绕课程组队、项目协作等短期合作场景，梳理用户痛点并定义"房间加入—轻量问答—同频地图—留灯连接"核心路径。参与 AIGC 破冰场景设计，使用 Codex / Trae 辅助完成页面搭建与交互优化，协同团队将早期构想转化为可交互 MVP 与产品展示页，通过 GitHub 开展团队协作及线上部署。',
+    tech: ['产品策划', 'AIGC 应用', 'Codex / Trae', 'React', 'GitHub'],
+    stat1: { icon: '🚀', value: 'MVP 已上线' },
+    stat2: { icon: '👥', value: '团队项目' },
+    placeholder: '🔗 LINKUP_AI',
   },
   {
-    tag: 'AIGC PROJECT',
-    title: 'AI 相关项目',
-    desc: '描述一下你的 AI 项目，比如：基于大模型的XX应用，集成了XX API，支持XX功能。突出你在 AIGC 方面的能力！',
-    tech: ['Python', 'LangChain', 'OpenAI API', 'Next.js'],
-    stat1: { icon: '🤖', value: 'AI Powered' },
-    stat2: { icon: '📈', value: '95% 准确率' },
-    placeholder: '🧠 AI_PROJECT',
+    tag: 'CONTENT · GROWTH',
+    title: 'AI 产品内容增长实践 · 小红书',
+    desc: '围绕 fancyJobs 等 AI 初创产品，独立完成用户分析、内容策划及小红书发布，使用 AIGC 工具辅助选题研究与文案优化。单篇 fancyJobs 主题内容获得 8,834 次浏览、795 次点赞、541 次收藏、117 次分享及 20 条评论，超越 500 赞目标。复盘海外求职用户对 AI 求职、信息差的核心关注点。',
+    tech: ['小红书运营', 'AIGC 文案', '用户分析', '内容增长', '数据复盘'],
+    stat1: { icon: '👀', value: '8.8k+ 浏览' },
+    stat2: { icon: '❤️', value: '795 点赞' },
+    placeholder: '📕 XHS_GROWTH',
   },
   {
-    tag: 'OPEN SOURCE',
-    title: 'LinkUp 项目',
-    desc: '你之前做过的 LinkUp 项目！简单介绍一下：这是一个XX平台，实现了XX功能，用户可以XX。',
-    tech: ['自选技术栈1', '自选技术栈2', '...'],
-    stat1: { icon: '💾', value: 'Repo 私有' },
-    stat2: { icon: '✅', value: '已完成' },
-    placeholder: '🔗 LINK_UP',
+    tag: 'RESEARCH · PAPER',
+    title: 'Starbucks Third Place 品牌策略研究',
+    desc: '独立完成英文论文并发表于 Finance & Economics (2024)。围绕星巴克"第三空间"策略、社交属性与品牌认同开展消费者洞察与案例研究，通过调研问卷与用户反馈，提出提升年轻用户黏性、空间体验及品牌沟通的策略建议。',
+    tech: ['消费者研究', '品牌策略', '问卷与访谈', '案例分析', '英文学术写作'],
+    stat1: { icon: '📄', value: '论文已发表' },
+    stat2: { icon: '🔗', value: 'DOI: 10.61173/f7mj1943' },
+    placeholder: '☕ SBUX_RESEARCH',
   },
 ]
 
 const CONTACT_DATA = [
-  { icon: '📧', label: 'EMAIL', value: 'your.email@example.com' },
-  { icon: '📱', label: 'WECHAT / PHONE', value: '+86 138 xxxx xxxx' },
+  { icon: '📧', label: 'EMAIL', value: 'liyixiao2022@126.com' },
+  { icon: '📱', label: 'PHONE', value: '+86 199 3978 0007' },
   { icon: '💻', label: 'GITHUB', value: 'github.com/Yelena-eng' },
-  { icon: '💼', label: 'LINKEDIN', value: 'linkedin.com/in/yourname' },
+  { icon: '🎓', label: 'RESEARCHGATE', value: 'DOI: 10.61173/f7mj1943' },
 ]
 
 const CHAT_PRESET = [
   {
     from: 'ai',
-    text: `你好！我是 Yelena 的 AI 数字分身 🤖\n\n你可以问我关于她的任何问题，比如：\n• "介绍一下你自己"\n• "你有什么项目经验？"\n• "你的技术栈是什么？"\n• "想找什么样的工作？"`,
+    text: `你好！我是李宜晓的 AI 数字分身 🤖\n\n你可以问我关于她的任何问题，比如：\n• "介绍一下你自己"\n• "你有什么项目经验？"\n• "你的核心能力是什么？"\n• "想找什么样的工作？"`,
   },
 ]
 
 const CHAT_KNOWLEDGE = {
-  default: '这是个好问题！你可以在作品集上方找到「下载简历」按钮获取更多详细信息，或者直接通过邮箱联系 Yelena 哦 💜',
-  intro: `我叫${ABOUT_DATA.name}，是一名正在秋招的${ABOUT_DATA.role}。我热爱技术和创新，特别是 AIGC 方向！\n\n${ABOUT_DATA.description}`,
-  project: `我做过不少项目，作品集里展示了 ${PROJECTS_DATA.length} 个代表作品：\n\n${PROJECTS_DATA.map((p, i) => `${i + 1}. 【${p.title}】- ${p.desc.slice(0, 40)}...`).join('\n')}\n\n每个项目卡片上都有链接可以查看详情哦！`,
-  skill: `我的技术栈覆盖很广：\n\n💻 开发：JavaScript/TS, React/Vue, Node.js, Python\n🛠 工具：Git, Figma, 各种 AIGC 工具\n🎨 其他：项目管理、UI/UX 设计\n\n具体熟练度可以看「技能栈」部分的进度条！`,
-  job: `秋招正在寻找【${ABOUT_DATA.role}相关】的全职工作机会！\n\n我希望加入一个重视创新、有技术氛围的团队，和优秀的人一起做有影响力的产品。\n\n如果你有岗位推荐，欢迎通过📧邮箱联系我！`,
-  contact: `📧 邮箱：your.email@example.com\n💻 GitHub：github.com/Yelena-eng\n💼 LinkedIn：linkedin.com/in/yourname\n\n期待和你聊聊！✨`,
+  default: '这是个好问题！你可以在作品集上方找到「下载简历」按钮获取更多详细信息，或者直接通过邮箱联系宜晓哦 💜',
+  intro: `我叫${ABOUT_DATA.name}，是一名正在求职的${ABOUT_DATA.role}。\n\n🎓 曼彻斯特大学发展经济学政策硕士在读（2025-2026），布里斯托大学经济学学士（2022-2025）。\n\n💡 我兼具经济学学术背景与 AIGC 产品实践经验，热爱用产品思维连接技术与商业价值，尤其关注 AI 产品、用户体验与海外市场。\n\n🚀 从 LinkUp AI 社交工具的 MVP 落地，到小红书单篇 8.8k+ 浏览的内容增长，我坚信「以用户为中心 + 数据驱动」能创造真正有价值的产品！`,
+  project: `作品集里展示了 ${PROJECTS_DATA.length} 个代表作品：\n\n${PROJECTS_DATA.map((p, i) => `${i + 1}. 【${p.title}】\n   ${p.desc.slice(0, 60)}...`).join('\n')}\n\n每个项目卡片上都有详细的项目描述与技术栈哦！`,
+  skill: `我的核心能力覆盖三大维度：\n\n📊 产品与研究：产品需求梳理(88%)、用户研究(90%)、竞品分析(85%)、AIGC产品设计(88%)\n💻 数据与工具：Excel/PPT(92%)、Figma(78%)、Stata/R(72%)、AI提效(90%)\n📝 内容与运营：小红书增长(88%)、产品文案(85%)、问卷访谈(80%)、中英双语(90%)\n\n具体熟练度可以看「技能栈」部分的进度条！`,
+  job: `2027届校招正在寻找【${ABOUT_DATA.role}】相关的全职工作机会！\n\n理想方向包括但不限于：\n🧠 AI 产品经理 / AIGC 产品策划\n📊 商业分析 / 战略分析\n🌍 海外业务 / 国际化产品\n🎓 管理培训生\n\n我希望加入一个重视用户价值、鼓励创新的团队，和优秀的人一起做有影响力的产品。\n\n如果你有岗位推荐，欢迎通过📧邮箱联系我！`,
+  contact: `📧 邮箱：liyixiao2022@126.com\n📱 电话：+86 199 3978 0007\n💻 GitHub：github.com/Yelena-eng\n🎓 ResearchGate：DOI: 10.61173/f7mj1943\n\n期待和你聊聊！✨`,
+  education: `🎓 教育背景：\n\n🇬🇧 曼彻斯特大学｜发展经济学与政策 硕士 (2025.09-2026.11)\n   核心课程：发展微观/宏观经济学、应用发展经济学、公共部门经济分析\n\n🇬🇧 布里斯托大学｜经济学 学士 (2022.09-2025.06)\n   核心课程：中级微观/宏观经济学、计量经济学、运营管理、统计学`,
+  experience: `另外还有两段银行实习经历 + 校园经历：\n\n🏦 中国光大银行郑州分行｜零售实习生 (2024.06-07)\n   协助客户信息核对、金融产品推广、市场调研与业务数据整理\n\n🏦 中国银行河南省分行｜大堂经理助理 (2023.06-07)\n   客户接待、业务引导、信用卡推广执行与反馈整理\n\n🎭 布里斯托大学中国学联｜学习部干事 + 辩论社副主席 (2022-2023)\n   组织学术讲座、辩论赛、对接熊猫外卖等商家合作`,
 }
 
 function matchIntent(text) {
   const t = text.toLowerCase()
-  if (t.includes('介绍') || t.includes('自己') || t.includes('你是谁') || t.includes('who')) return CHAT_KNOWLEDGE.intro
+  if (t.includes('介绍') || t.includes('自己') || t.includes('你是谁') || t.includes('who') || t.includes('个人')) return CHAT_KNOWLEDGE.intro
   if (t.includes('项目') || t.includes('作品') || t.includes('经验') || t.includes('project')) return CHAT_KNOWLEDGE.project
-  if (t.includes('技能') || t.includes('技术') || t.includes('栈') || t.includes('会什么') || t.includes('skill')) return CHAT_KNOWLEDGE.skill
-  if (t.includes('工作') || t.includes('求职') || t.includes('找') || t.includes('机会') || t.includes('job')) return CHAT_KNOWLEDGE.job
-  if (t.includes('联系') || t.includes('邮箱') || t.includes('contact') || t.includes('微信') || t.includes('电话')) return CHAT_KNOWLEDGE.contact
+  if (t.includes('技能') || t.includes('技术') || t.includes('栈') || t.includes('会什么') || t.includes('skill') || t.includes('能力')) return CHAT_KNOWLEDGE.skill
+  if (t.includes('工作') || t.includes('求职') || t.includes('找') || t.includes('机会') || t.includes('job') || t.includes('意向') || t.includes('方向')) return CHAT_KNOWLEDGE.job
+  if (t.includes('联系') || t.includes('邮箱') || t.includes('contact') || t.includes('微信') || t.includes('电话') || t.includes('怎么找')) return CHAT_KNOWLEDGE.contact
+  if (t.includes('教育') || t.includes('学校') || t.includes('学历') || t.includes('专业') || t.includes('education') || t.includes('硕士') || t.includes('学士') || t.includes('大学')) return CHAT_KNOWLEDGE.education
+  if (t.includes('实习') || t.includes('经历') || t.includes('校园') || t.includes('学联') || t.includes('银行') || t.includes('experience')) return CHAT_KNOWLEDGE.experience
   return CHAT_KNOWLEDGE.default
 }
 
@@ -184,8 +197,8 @@ function HeroSectionV2() {
       <div className="hero-v2-bg">
         <div className="hero-v2-img-wrap">
           <img
-            src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20fashion%20portrait%20of%20a%20cool%20asian%20girl%20in%20prison%20orange%20jumpsuit%20holding%20mugshot%20sign%20neon%20lights%20dark%20mood%20cinematic&image_size=portrait_4_3"
-            alt="Yelena Portrait"
+            src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cyberpunk%20fashion%20portrait%20of%20a%20confident%20young%20asian%20woman%2C%20neon%20purple%20and%20cyan%20lighting%2C%20futuristic%20tech%20jacket%2C%20holographic%20accessories%2C%20tokyo%20street%20background%2C%20dark%20mood%20cinematic%20lighting%2C%20high%20detail%20professional&image_size=portrait_4_3"
+            alt="李宜晓 Portrait"
             className="hero-v2-img"
             onError={(e) => { e.currentTarget.style.display = 'none' }}
           />
@@ -286,7 +299,7 @@ function HeroSectionV2() {
         </div>
           <div className="hud-line">
           <span className="hud-key">USER</span>
-          <span className="hud-val">YELENA_001</span>
+          <span className="hud-val">YIXIAO_LI_001</span>
         </div>
         </div>
 
@@ -319,15 +332,20 @@ function AboutSection() {
         <div className="about-card neon-border">
           <div className="about-content">
             <p className="about-text">
-              👋 你好！我是 <strong>{ABOUT_DATA.name}</strong>，一名 <strong>{ABOUT_DATA.role}</strong>。
-              热爱用技术创造有温度的产品，对 AIGC 和人机交互充满好奇。
+              👋 你好！我是 <strong>{ABOUT_DATA.name}</strong>，一名专注于 <strong>{ABOUT_DATA.role}</strong> 的 2027 届求职者。
             </p>
             <p className="about-text">
-              💡 我相信 <strong>创意 + 技术 = 无限可能</strong>。无论是前端的酷炫交互，
-              还是后端的稳定架构，亦或是用 AI 让产品变得更聪明，都是我乐于探索的领域。
+              🎓 <strong>教育背景</strong>：曼彻斯特大学发展经济学与政策硕士（在读），布里斯托大学经济学学士。
+              扎实的经济学训练让我擅长从数据中洞察商业价值，而 AIGC 产品实践则让我对「AI + 产品」的结合有了第一手落地经验。
             </p>
             <p className="about-text">
-              🎯 秋招目标：<strong>找到志同道合的团队</strong>，一起做真正有价值的产品！
+              💡 <strong>产品思维</strong>：从 LinkUp AI 社交工具的 MVP 从 0 到 1，
+              到小红书单篇 8,834 浏览的内容增长实战；从独立发表英文消费者研究论文，
+              到两段银行实习中对用户需求的近距离观察——我相信 <strong>「以用户为中心 + 数据驱动」</strong> 是产品成功的关键。
+            </p>
+            <p className="about-text">
+              🎯 <strong>求职目标</strong>：希望加入重视用户价值、鼓励创新的团队，
+              在 <strong>AI 产品 / 商业分析 / 海外业务 / 管培生</strong> 方向贡献力量，一起做真正有影响力的产品！
             </p>
 
             <div className="about-info-grid">
@@ -452,7 +470,7 @@ function ContactSection({ onOpenChat }) {
           </div>
 
           <div className="contact-cta">
-            <a href="mailto:your.email@example.com" className="btn-cyber">
+            <a href="mailto:liyixiao2022@126.com" className="btn-cyber">
               📧 发邮件给我
             </a>
             <button className="btn-cyber btn-cyber-secondary" onClick={onOpenChat}>
