@@ -239,15 +239,16 @@ const EDUCATIONS = [
 const CONTACTS = [
   { icon: 'mail', label: 'Email', value: PROFILE.email, href: `mailto:${PROFILE.email}` },
   { icon: 'github', label: 'GitHub', value: `github.com/${PROFILE.github}`, href: `https://github.com/${PROFILE.github}` },
+  { icon: 'wechat', label: 'WeChat', value: 'Morri-7ly', href: `weixin://dl/chat?Morri-7ly` },
   { icon: 'phone', label: 'Phone', value: PROFILE.phone, href: `tel:${PROFILE.phone.replace(/\s/g, '')}` },
   { icon: 'paper', label: '论文 DOI', value: '10.61173/f7mj1943', href: 'https://doi.org/10.61173/f7mj1943' },
 ]
 
 const SOCIALS = [
-  { name: 'Email', href: `mailto:${PROFILE.email}`, char: 'E' },
-  { name: 'GitHub', href: `https://github.com/${PROFILE.github}`, char: 'G' },
-  { name: 'LinkedIn', href: '#contact', char: 'in' },
-  { name: 'Phone', href: `tel:${PROFILE.phone.replace(/\s/g, '')}`, char: 'T' },
+  { name: 'Email', href: `mailto:${PROFILE.email}`, label: 'Email' },
+  { name: 'GitHub', href: `https://github.com/${PROFILE.github}`, label: 'GitHub' },
+  { name: 'WeChat', href: `weixin://dl/chat?Morri-7ly`, label: 'WeChat' },
+  { name: 'Phone', href: `tel:${PROFILE.phone.replace(/\s/g, '')}`, label: 'Phone' },
 ]
 
 function useActiveSection() {
@@ -738,7 +739,7 @@ export default function App() {
                       title={s.name}
                       aria-label={s.name}
                     >
-                      {s.char}
+                      {s.label}
                     </a>
                   </li>
                 ))}
@@ -808,7 +809,7 @@ export default function App() {
           <div className="pf-about-grid">
             <div className="pf-about-intro">
               <p className="pf-about-lead">
-                你好，我是 <strong>{PROFILE.name}</strong>。
+                Hello~大家好, 我是<strong>{PROFILE.name}</strong>。
                 从布里斯托到曼彻斯特，我的经济学训练让我习惯从「<strong>数据 → 洞察 → 策略</strong>」的结构思考问题；
                 而 LinkUp 社交产品、小红书内容增长、Starbucks 品牌研究论文这三类实践，
                 让我真正把结构化思考落地为 <strong>0→1 的产品、可量化的增长、可发表的研究</strong>。
@@ -1098,7 +1099,7 @@ export default function App() {
             <span className="pf-sec-idx mono">07 — Get in Touch</span>
             <h2 className="pf-sec-title serif big">有合适的机会？<br />让我们聊一聊。</h2>
             <p className="pf-contact-sub">
-              欢迎邮件 / 电话 / GitHub 留言，任何形式的合作、内推、交流我都会认真回复 ♡
+              欢迎邮件 / 微信 / 电话 / GitHub 留言，任何形式的合作、内推、交流我都会认真回复 ♡
             </p>
           </header>
 
